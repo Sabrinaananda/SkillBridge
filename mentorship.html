@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentorship – SkillBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #0a0d14;
+    --bg2: #111520;
+    --bg3: #161b28;
+    --card: #1a2035;
+    --card2: #1e2640;
+    --accent: #4f8ef7;
+    --accent2: #7b5ef8;
+    --accent3: #38d9a9;
+    --accent4: #f7884f;
+    --text: #e8edf8;
+    --text2: #8a96b8;
+    --text3: #5a6285;
+    --border: #252d47;
+    --glow: rgba(79,142,247,0.18);
+    --glow2: rgba(123,94,248,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .nav-cta{display:flex;gap:.75rem;align-items:center;}
+  .btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;}
+  .btn-primary:hover{opacity:.85;}
+
+  /* PAGE HERO */
+  .page-hero{padding:120px 5% 60px;position:relative;overflow:hidden;background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);}
+  .hero-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+  .orb1{width:500px;height:500px;background:rgba(79,142,247,.1);top:-100px;right:-80px;}
+  .orb2{width:300px;height:300px;background:rgba(56,217,169,.07);bottom:0;left:15%;}
+  .page-hero-inner{max-width:700px;position:relative;z-index:1;}
+  .breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--text3);margin-bottom:1.5rem;}
+  .breadcrumb a{color:var(--text3);text-decoration:none;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--accent);}
+  .breadcrumb i{font-size:.65rem;}
+  .page-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:100px;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);font-size:.78rem;color:var(--accent);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1.25rem;}
+  .page-hero h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-1.5px;margin-bottom:1rem;}
+  .page-hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .page-hero p{color:var(--text2);font-size:1rem;line-height:1.75;max-width:540px;font-weight:300;}
+
+  /* STATS ROW */
+  .stats-row{display:flex;gap:0;margin-top:2.5rem;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:560px;}
+  .stat-item{flex:1;padding:1.25rem 1.5rem;border-right:1px solid var(--border);}
+  .stat-item:last-child{border-right:none;}
+  .stat-num{font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:800;color:var(--text);}
+  .stat-label{font-size:.75rem;color:var(--text3);margin-top:.2rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
+
+  /* MAIN */
+  .main-content{padding:3rem 5% 6rem;}
+  .section-label{font-size:.75rem;color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;}
+  h2{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-1px;margin-bottom:.75rem;}
+  .section-desc{color:var(--text2);font-size:.95rem;line-height:1.75;max-width:540px;}
+  .section-header{margin-bottom:2rem;}
+
+  /* SEARCH & FILTER */
+  .search-filter-row{display:flex;gap:1rem;align-items:center;margin-bottom:2rem;flex-wrap:wrap;}
+  .search-box{
+    display:flex;align-items:center;gap:.75rem;flex:1;min-width:240px;
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:.65rem 1rem;transition:border-color .2s;
+  }
+  .search-box:focus-within{border-color:var(--accent);}
+  .search-box i{color:var(--text3);}
+  .search-box input{background:transparent;border:none;outline:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;flex:1;}
+  .search-box input::placeholder{color:var(--text3);}
+  .filter-chips{display:flex;gap:.5rem;flex-wrap:wrap;}
+  .chip{padding:.45rem 1rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;}
+  .chip.active,.chip:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .sort-select{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.6rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;cursor:pointer;}
+
+  /* MENTORS GRID */
+  .mentors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin-bottom:4rem;}
+  .mentor-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:1.5rem;transition:all .3s;position:relative;overflow:hidden;
+  }
+  .mentor-card::before{content:'';position:absolute;inset:0;opacity:0;background:linear-gradient(135deg,var(--glow),transparent);transition:opacity .3s;}
+  .mentor-card:hover{border-color:rgba(79,142,247,.4);transform:translateY(-4px);}
+  .mentor-card:hover::before{opacity:1;}
+
+  .mentor-top{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.25rem;}
+  .mentor-avatar{
+    width:60px;height:60px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;
+  }
+  .mentor-info{}
+  .mentor-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.2rem;}
+  .mentor-role{font-size:.78rem;color:var(--text2);margin-bottom:.4rem;line-height:1.4;}
+  .mentor-company{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--text3);}
+  .mentor-company i{font-size:.65rem;}
+
+  .mentor-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
+  .mtag{padding:.22rem .6rem;border-radius:5px;font-size:.72rem;font-weight:500;background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+
+  .mentor-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1rem;padding:1rem;background:var(--bg3);border-radius:10px;border:1px solid var(--border);}
+  .mstat{}
+  .mstat-num{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+  .mstat-label{font-size:.68rem;color:var(--text3);margin-top:.1rem;}
+
+  .mentor-rate{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+  .rate-price{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;color:var(--accent3);}
+  .rate-free{font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;color:var(--accent3);}
+  .rate-label{font-size:.72rem;color:var(--text3);}
+  .rating-stars{display:flex;align-items:center;gap:.3rem;font-size:.82rem;}
+  .stars{color:#f59e0b;}
+
+  .mentor-actions{display:flex;gap:.6rem;}
+  .profile-btn{
+    flex:0;padding:.55rem .9rem;border-radius:8px;border:1px solid var(--border);
+    background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;
+    font-size:.82rem;cursor:pointer;transition:all .2s;white-space:nowrap;
+  }
+  .profile-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .book-btn{
+    flex:1;padding:.55rem;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    border:none;color:#fff;font-family:'DM Sans',sans-serif;
+    font-size:.85rem;font-weight:600;cursor:pointer;transition:opacity .2s;
+  }
+  .book-btn:hover{opacity:.85;}
+
+  /* MENTOR DETAIL / DRAWER */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:1500;display:none;justify-content:flex-end;}
+  .drawer-overlay.open{display:flex;}
+  .drawer{
+    width:min(480px,100%);height:100vh;background:var(--card2);
+    border-left:1px solid var(--border);overflow-y:auto;
+    animation:slideIn .3s ease;
+  }
+  @keyframes slideIn{from{transform:translateX(100%);}to{transform:translateX(0);}}
+  .drawer-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  .drawer-close{background:transparent;border:none;color:var(--text2);font-size:1.3rem;cursor:pointer;}
+  .drawer-body{padding:1.5rem;}
+  .drawer-mentor-top{display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:1.5rem;}
+  .drawer-avatar{width:72px;height:72px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:1.5rem;}
+  .drawer-name{font-family:'Sora',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:.3rem;}
+  .drawer-role{font-size:.85rem;color:var(--text2);margin-bottom:.5rem;}
+  .drawer-company-badge{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .7rem;border-radius:6px;background:var(--bg3);border:1px solid var(--border);font-size:.75rem;color:var(--text3);}
+
+  .section-divider{height:1px;background:var(--border);margin:1.25rem 0;}
+  .drawer-section-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.875rem;color:var(--text2);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem;}
+  .bio-text{font-size:.875rem;color:var(--text2);line-height:1.75;}
+
+  .expertise-list{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
+  .exp-tag{padding:.3rem .7rem;border-radius:6px;font-size:.75rem;font-weight:500;background:rgba(79,142,247,.1);color:var(--accent);border:1px solid rgba(79,142,247,.2);}
+
+  .availability-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1rem;}
+  .avail-slot{padding:.65rem;border-radius:8px;background:var(--bg3);border:1px solid var(--border);font-size:.8rem;text-align:center;}
+  .avail-slot.available{border-color:rgba(56,217,169,.3);background:rgba(56,217,169,.06);color:var(--accent3);}
+  .avail-slot.booked{opacity:.5;cursor:not-allowed;text-decoration:line-through;color:var(--text3);}
+
+  .reviews-list{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;}
+  .review-item{padding:1rem;border-radius:10px;background:var(--bg3);border:1px solid var(--border);}
+  .review-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+  .reviewer-name{font-weight:600;font-size:.85rem;}
+  .review-stars{color:#f59e0b;font-size:.8rem;}
+  .review-text{font-size:.82rem;color:var(--text2);line-height:1.6;}
+
+  .book-drawer-btn{
+    width:100%;padding:.85rem;border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    border:none;color:#fff;font-family:'DM Sans',sans-serif;
+    font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s;
+  }
+  .book-drawer-btn:hover{opacity:.85;}
+
+  /* HOW IT WORKS */
+  .how-section{background:var(--bg2);padding:4rem 5%;margin:0 -5%;margin-bottom:4rem;}
+  .steps-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem;}
+  .step-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;position:relative;}
+  .step-num{
+    width:40px;height:40px;border-radius:50%;margin:0 auto 1rem;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Sora',sans-serif;font-weight:800;font-size:.9rem;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+  }
+  .step-icon{font-size:1.75rem;margin-bottom:.75rem;}
+  .step-title-text{font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:.4rem;}
+  .step-desc-text{font-size:.8rem;color:var(--text2);line-height:1.6;}
+  .step-arrow{position:absolute;right:-1.2rem;top:50%;transform:translateY(-50%);color:var(--text3);font-size:.8rem;z-index:1;}
+
+  /* MY SESSIONS */
+  .sessions-section{margin-bottom:4rem;}
+  .sessions-layout{display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:start;}
+  .sessions-list{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+  .sessions-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;}
+  .session-item{display:flex;gap:1rem;align-items:center;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);}
+  .session-item:last-child{border-bottom:none;}
+  .session-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:1rem;}
+  .session-info{flex:1;}
+  .session-name{font-weight:600;font-size:.88rem;margin-bottom:.2rem;}
+  .session-topic{font-size:.78rem;color:var(--text2);}
+  .session-meta{text-align:right;}
+  .session-date{font-size:.78rem;color:var(--text2);margin-bottom:.25rem;}
+  .session-status{display:inline-block;padding:.2rem .6rem;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+  .status-upcoming{background:rgba(79,142,247,.12);color:var(--accent);}
+  .status-done{background:rgba(56,217,169,.12);color:var(--accent3);}
+  .status-cancelled{background:rgba(248,113,113,.1);color:#f87171;}
+
+  .chat-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+  .chat-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
+  .chat-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.85rem;}
+  .chat-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.875rem;}
+  .chat-online{font-size:.72rem;color:var(--accent3);display:flex;align-items:center;gap:.3rem;}
+  .chat-online::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);display:inline-block;}
+  .chat-body{height:240px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.6rem;}
+  .msg{padding:.6rem .9rem;border-radius:10px;font-size:.82rem;max-width:85%;line-height:1.5;}
+  .msg.them{background:var(--bg3);color:var(--text);border:1px solid var(--border);align-self:flex-start;}
+  .msg.me{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;align-self:flex-end;border-radius:10px 10px 2px 10px;}
+  .chat-input-row{display:flex;gap:.5rem;padding:.75rem;border-top:1px solid var(--border);}
+  .chat-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.55rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;}
+  .chat-input:focus{border-color:var(--accent);}
+  .chat-send{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+  /* MODAL (booking) */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:480px;width:100%;position:relative;animation:scaleIn .3s ease;}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;}
+  .modal h3{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:.4rem;}
+  .modal .sub{font-size:.85rem;color:var(--text2);margin-bottom:1.5rem;}
+  .form-group{margin-bottom:1rem;}
+  .form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--text2);margin-bottom:.4rem;}
+  .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:border-color .2s;}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+  .form-group textarea{resize:vertical;min-height:80px;}
+  .modal-actions{display:flex;gap:.75rem;justify-content:flex-end;margin-top:1.5rem;}
+  .slot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:.4rem;}
+  .slot-option{padding:.6rem;border-radius:8px;border:1px solid var(--border);background:var(--bg3);font-size:.82rem;text-align:center;cursor:pointer;transition:all .2s;}
+  .slot-option:hover,.slot-option.selected{border-color:var(--accent);background:rgba(79,142,247,.1);color:var(--accent);}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:2rem;right:2rem;z-index:3000;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;transform:translateX(120%);transition:transform .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+  .toast.show{transform:translateX(0);}
+  .toast-icon{font-size:1.1rem;}
+  .toast-text{font-size:.875rem;font-weight:500;}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes scaleIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+  .reveal{opacity:0;transform:translateY(30px);transition:all .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .sessions-layout{grid-template-columns:1fr;}
+    .chat-panel{display:none;}
+    .nav-links{display:none;}
+  }
+  @media(max-width:600px){
+    nav{padding:0 4%;}
+    .main-content{padding:2rem 4% 4rem;}
+    .how-section{padding:3rem 4%;}
+    .mentor-stats{grid-template-columns:repeat(3,1fr);}
+  }
+
+  /* ===== NAV UNIVERSAL ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;text-decoration:none;}
+  .nav-links{display:flex;gap:1.4rem;list-style:none;}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.84rem;font-weight:500;transition:color .2s;padding:.25rem 0;border-bottom:2px solid transparent;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent);}
+  .nav-cta{display:flex;gap:.75rem;align-items:center;}
+  .btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;display:inline-flex;align-items:center;}
+  .btn-primary:hover{opacity:.85;}
+  /* mobile nav */
+  @media(max-width:860px){.nav-links{display:none;}.nav-cta .btn-ghost{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">SkillBridge</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="lowongan.html">Lowongan</a></li>
+    <li><a href="skill-assessment.html">Assessment</a></li>
+    <li><a href="mentorship.html" class="active">Mentorship</a></li>
+    <li><a href="portfolio-builder.html">Portfolio</a></li>
+    <li><a href="gamification.html">Rewards</a></li>
+    <li><a href="chat.html">Chat</a></li>
+    <li><a href="profil.html">Profil</a></li>
+  </ul>
+    <div class="nav-cta">
+    <button class="btn-ghost" onclick="SBAuth.openLogin()">Masuk</button>
+    <button class="btn-primary" onclick="SBAuth.openRegister()">Daftar Gratis</button>
+  </div>
+
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Beranda</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Mentorship</span>
+    </div>
+    <div class="page-badge"><i class="fas fa-user-tie"></i>&nbsp; Expert Mentors</div>
+    <h1>Belajar Langsung dari<br><span>Para Profesional</span></h1>
+    <p>Terhubung dengan mentor berpengalaman dari perusahaan top Indonesia. Sesi 1-on-1 yang dipersonalisasi untuk mempercepat karir kamu secara nyata.</p>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">320+</div>
+        <div class="stat-label">Mentor Aktif</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15K+</div>
+        <div class="stat-label">Sesi Selesai</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.8★</div>
+        <div class="stat-label">Rating Rata-rata</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="section-label">Cara Kerja</div>
+  <h2>Proses Mentoring yang Simpel</h2>
+  <div class="steps-row">
+    <div class="step-card reveal">
+      <div class="step-num">1</div>
+      <div class="step-icon">🔍</div>
+      <div class="step-title-text">Temukan Mentor</div>
+      <div class="step-desc-text">Filter berdasarkan bidang, perusahaan, harga, dan ketersediaan waktu.</div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">2</div>
+      <div class="step-icon">📅</div>
+      <div class="step-title-text">Booking Sesi</div>
+      <div class="step-desc-text">Pilih slot waktu yang tersedia dan konfirmasi topik diskusi.</div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">3</div>
+      <div class="step-icon">💬</div>
+      <div class="step-title-text">Sesi 1-on-1</div>
+      <div class="step-desc-text">Diskusi personal via video call selama 60 menit dengan mentor pilihan kamu.</div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">4</div>
+      <div class="step-icon">🚀</div>
+      <div class="step-title-text">Tindak Lanjut</div>
+      <div class="step-desc-text">Dapatkan action plan, resource, dan follow-up support dari mentor.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+  <!-- SEARCH & FILTER -->
+  <div class="section-header reveal">
+    <div class="section-label">Direktori Mentor</div>
+    <h2>Temukan Mentor Idealmu</h2>
+    <p class="section-desc">Semua mentor telah diverifikasi dan berpengalaman minimal 3 tahun di industri.</p>
+  </div>
+
+  <div class="search-filter-row">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Cari mentor berdasarkan nama atau skill..." id="searchInput" oninput="searchMentors()">
+    </div>
+    <select class="sort-select" onchange="renderMentors()">
+      <option>Rating Tertinggi</option>
+      <option>Sesi Terbanyak</option>
+      <option>Harga Terendah</option>
+      <option>Terbaru</option>
+    </select>
+  </div>
+  <div class="filter-chips" id="filterChips">
+    <button class="chip active" onclick="filterMentors(this,'semua')">Semua</button>
+    <button class="chip" onclick="filterMentors(this,'tech')">Tech</button>
+    <button class="chip" onclick="filterMentors(this,'design')">Design</button>
+    <button class="chip" onclick="filterMentors(this,'product')">Product</button>
+    <button class="chip" onclick="filterMentors(this,'data')">Data</button>
+    <button class="chip" onclick="filterMentors(this,'business')">Business</button>
+    <button class="chip" onclick="filterMentors(this,'marketing')">Marketing</button>
+  </div>
+
+  <div class="mentors-grid" id="mentorsGrid"></div>
+
+  <!-- MY SESSIONS -->
+  <div class="sessions-section">
+    <div class="section-header reveal">
+      <div class="section-label">Aktivitas Saya</div>
+      <h2>Sesi Mentoring Saya</h2>
+      <p class="section-desc">Kelola sesi yang akan datang dan lihat riwayat mentoring kamu.</p>
+    </div>
+    <div class="sessions-layout">
+      <div class="sessions-list reveal" id="sessionsList">
+        <div class="sessions-header">📅 Jadwal & Riwayat Sesi</div>
+      </div>
+      <div class="chat-panel reveal">
+        <div class="chat-header">
+          <div class="chat-av" id="chatAv" style="background:rgba(79,142,247,.15);color:var(--accent)">AW</div>
+          <div>
+            <div class="chat-name" id="chatName">Andi Wijaya</div>
+            <div class="chat-online">Online</div>
+          </div>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="msg them">Hai! Selamat datang. Ada yang bisa saya bantu sebelum sesi kita minggu ini?</div>
+          <div class="msg me">Halo kak! Mau tanya tentang transisi dari desainer ke product manager, apakah ada resource yang direkomendasikan?</div>
+          <div class="msg them">Tentu! Saya rekomendasikan baca "Inspired" oleh Marty Cagan dan coba framework JTBD dulu. Kita bahas lebih dalam saat sesi ya 👋</div>
+        </div>
+        <div class="chat-input-row">
+          <input class="chat-input" id="chatInput" placeholder="Kirim pesan ke mentor..." onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="chat-send" onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DRAWER (Mentor Detail) -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem">Profil Mentor</span>
+      <button class="drawer-close" onclick="closeDrawerBtn()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+</div>
+
+<!-- MODAL BOOK -->
+<div class="modal-overlay" id="modal-book">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('book')"><i class="fas fa-times"></i></button>
+    <h3 id="bookMentorName">Booking Sesi Mentoring</h3>
+    <p class="sub">Isi detail sesi yang ingin kamu lakukan</p>
+    <div class="form-group">
+      <label>Tanggal Sesi</label>
+      <input type="date" id="bookDate">
+    </div>
+    <div class="form-group">
+      <label>Pilih Slot Waktu</label>
+      <div class="slot-grid" id="slotGrid"></div>
+    </div>
+    <div class="form-group">
+      <label>Topik Diskusi</label>
+      <textarea placeholder="Contoh: Saya ingin berdiskusi tentang transisi karir dari desainer ke PM, dan bagaimana membangun portfolio yang kuat..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Tujuan Sesi</label>
+      <select>
+        <option>Career Advice</option>
+        <option>Technical Deep-Dive</option>
+        <option>Portfolio Review</option>
+        <option>Interview Preparation</option>
+        <option>Networking</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('book')">Batal</button>
+      <button class="btn-primary" onclick="confirmBook()">Konfirmasi Booking 🎯</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <span class="toast-text" id="toastText">Berhasil!</span>
+</div>
+
+<script>
+// ===== DATA =====
+const mentors = [
+  {
+    id:'aw',name:'Andi Wijaya',role:'Senior Product Manager',company:'Gojek',avatar:'AW',
+    avatarColor:'#4f8ef7',avatarBg:'rgba(79,142,247,.15)',category:'product',
+    tags:['Product Strategy','Agile/Scrum','OKR','User Research','Roadmapping'],
+    rating:4.9,sessions:127,experience:7,price:150000,free:false,
+    bio:'Saya adalah PM senior di Gojek dengan 7 tahun pengalaman membangun produk yang digunakan oleh jutaan orang. Sebelumnya saya pernah bekerja di Traveloka dan startup B2B. Saya passionate dalam membimbing junior PM dan desainer yang ingin beralih ke product management.',
+    expertise:['Product Discovery','Metrics & Analytics','Stakeholder Management','Go-to-Market Strategy','B2C & B2B Product'],
+    availability:['Senin 19:00','Rabu 20:00','Jumat 19:00','Sabtu 10:00'],
+    bookedSlots:['Rabu 20:00'],
+    reviews:[
+      {name:'Dita R.',stars:5,text:'Kak Andi sangat insightful. Membantu saya memahami cara membaca data dan membuat keputusan produk yang tepat. Highly recommended!'},
+      {name:'Fajar M.',stars:5,text:'Sesi yang sangat berharga. Mendapat clarity tentang transisi karir dari desainer ke PM dalam 1 sesi saja!'},
+    ]
+  },
+  {
+    id:'sk',name:'Sari Kusuma',role:'Lead UI/UX Designer',company:'Tokopedia',avatar:'SK',
+    avatarColor:'#38d9a9',avatarBg:'rgba(56,217,169,.15)',category:'design',
+    tags:['Figma','Design System','User Research','Prototyping','Visual Design'],
+    rating:4.8,sessions:94,experience:6,price:125000,free:false,
+    bio:'Lead Designer di Tokopedia yang telah mendesain pengalaman untuk 100+ juta pengguna. Saya fokus pada design systems, accessibility, dan research-driven design. Suka berbagi tentang proses kreatif dan bagaimana membangun karir desain yang berkelanjutan.',
+    expertise:['Design System','Mobile-first Design','Usability Testing','Accessibility','Brand & Visual Identity'],
+    availability:['Selasa 18:00','Kamis 19:00','Sabtu 14:00','Minggu 11:00'],
+    bookedSlots:['Sabtu 14:00'],
+    reviews:[
+      {name:'Rini P.',stars:5,text:'Portfolio review-nya sangat membantu. Dapat feedback konkrit yang langsung bisa diimplementasi. Sesi berikutnya sudah di-book!'},
+      {name:'Budi H.',stars:4,text:'Penjelasan tentang design system sangat jelas dan mudah dipahami. Terima kasih kak Sari!'},
+    ]
+  },
+  {
+    id:'rf',name:'Reza Firmansyah',role:'Staff Engineer',company:'Traveloka',avatar:'RF',
+    avatarColor:'#7b5ef8',avatarBg:'rgba(123,94,248,.15)',category:'tech',
+    tags:['System Design','Backend','Cloud Architecture','Microservices','Performance'],
+    rating:4.9,sessions:156,experience:9,price:200000,free:false,
+    bio:'Staff Engineer di Traveloka dengan keahlian di distributed systems dan high-availability architecture. Pernah menjadi speaker di beberapa tech conference dan aktif berkontribusi ke open source. Saya fokus pada system design interview prep dan senior engineer career path.',
+    expertise:['Distributed Systems','Database Optimization','Kubernetes & Docker','API Design','Tech Lead Skills'],
+    availability:['Senin 20:00','Rabu 19:00','Sabtu 09:00','Sabtu 11:00'],
+    bookedSlots:['Senin 20:00','Sabtu 09:00'],
+    reviews:[
+      {name:'Kevin T.',stars:5,text:'Penjelasan system design-nya luar biasa! Berhasil dapat offer di FAANG setelah 3 sesi dengan Kak Reza. Rekomendasi banget!'},
+      {name:'Lia S.',stars:5,text:'Sangat sabar menjelaskan konsep yang kompleks. Cara mengajarnya sangat mudah dipahami.'},
+    ]
+  },
+  {
+    id:'dp',name:'Dina Putri',role:'Data Scientist',company:'Bukalapak',avatar:'DP',
+    avatarColor:'#f7884f',avatarBg:'rgba(247,136,79,.15)',category:'data',
+    tags:['Machine Learning','Python','Statistics','Data Visualization','SQL'],
+    rating:4.7,sessions:68,experience:5,price:0,free:true,
+    bio:'Data Scientist di Bukalapak yang berfokus pada recommendation systems dan fraud detection. Alumni Universitas Indonesia dan pernah magang di Google. Saya membuka sesi gratis untuk mahasiswa yang ingin berkarir di bidang data science.',
+    expertise:['ML Model Development','Feature Engineering','A/B Testing','EDA & Visualization','Career Path in Data'],
+    availability:['Selasa 19:00','Kamis 20:00','Minggu 15:00'],
+    bookedSlots:[],
+    reviews:[
+      {name:'Ahmad F.',stars:5,text:'Sangat helpful! Kak Dina memberikan roadmap belajar data science yang jelas dan realistis untuk mahasiswa seperti saya.'},
+      {name:'Putri N.',stars:4,text:'Gratis tapi kualitasnya premium! Terima kasih banyak kak Dina 🙏'},
+    ]
+  },
+  {
+    id:'mb',name:'Mira Baskoro',role:'Marketing Director',company:'Shopee Indonesia',avatar:'MB',
+    avatarColor:'#f87171',avatarBg:'rgba(248,113,113,.15)',category:'marketing',
+    tags:['Growth Marketing','Performance Ads','Brand Strategy','Content Marketing','Analytics'],
+    rating:4.8,sessions:82,experience:8,price:175000,free:false,
+    bio:'10 tahun di marketing dengan karir yang dimulai dari copywriter hingga Marketing Director. Telah membangun dan memimpin tim marketing dari 0 ke 50+ orang. Mentor favorit untuk yang ingin masuk ke growth marketing dan brand management.',
+    expertise:['Brand Building','Growth Hacking','Campaign Management','Marketing Analytics','Team Building'],
+    availability:['Rabu 18:00','Jumat 18:00','Sabtu 10:00','Sabtu 13:00'],
+    bookedSlots:['Rabu 18:00'],
+    reviews:[
+      {name:'Yoga P.',stars:5,text:'Insight tentang growth marketing yang tidak bisa kamu dapat di tempat lain. Worth every penny!'},
+    ]
+  },
+  {
+    id:'hk',name:'Hendra Kurniawan',role:'CTO & Co-founder',company:'Modalku',avatar:'HK',
+    avatarColor:'#38d9a9',avatarBg:'rgba(56,217,169,.15)',category:'business',
+    tags:['Startup','Fundraising','Tech Strategy','Leadership','Fintech'],
+    rating:4.9,sessions:44,experience:12,price:250000,free:false,
+    bio:'Co-founder dan CTO Modalku (Series B fintech startup). Sebelumnya Engineering Lead di Tokopedia. Saya berbagi pengalaman membangun produk dari 0, fundraising, dan memimpin tim teknis di lingkungan startup yang bergerak cepat.',
+    expertise:['Startup Building','Technical Leadership','Fundraising Deck','Product-Market Fit','CTO Mindset'],
+    availability:['Senin 19:00','Jumat 20:00'],
+    bookedSlots:[],
+    reviews:[
+      {name:'Clara S.',stars:5,text:'Perspektif dari seorang CTO startup yang sangat berharga. Sesi ini mengubah cara saya berpikir tentang karir tech.'},
+    ]
+  },
+];
+
+const sessions = [
+  {mentor:'Andi Wijaya',topic:'Career Transition: Designer → PM',date:'Senin, 28 Apr 2025 • 19:00',status:'upcoming',av:'AW',avColor:'#4f8ef7',avBg:'rgba(79,142,247,.15)'},
+  {mentor:'Sari Kusuma',topic:'Portfolio Review – Mobile App Design',date:'Kamis, 24 Apr 2025 • 19:00',status:'done',av:'SK',avColor:'#38d9a9',avBg:'rgba(56,217,169,.15)'},
+  {mentor:'Reza Firmansyah',topic:'System Design Interview Prep',date:'Sabtu, 19 Apr 2025 • 11:00',status:'done',av:'RF',avColor:'#7b5ef8',avBg:'rgba(123,94,248,.15)'},
+  {mentor:'Dina Putri',topic:'Data Science Roadmap Discussion',date:'Selasa, 15 Apr 2025 • 19:00',status:'cancelled',av:'DP',avColor:'#f7884f',avBg:'rgba(247,136,79,.15)'},
+];
+
+// ===== STATE =====
+let currentFilter = 'semua';
+let searchQuery = '';
+let selectedMentor = null;
+let selectedSlot = null;
+
+// ===== RENDER MENTORS =====
+function renderMentors(){
+  const grid = document.getElementById('mentorsGrid');
+  let list = mentors.filter(m=>{
+    const matchCat = currentFilter==='semua' || m.category===currentFilter;
+    const matchSearch = searchQuery==='' || m.name.toLowerCase().includes(searchQuery) || m.tags.some(t=>t.toLowerCase().includes(searchQuery));
+    return matchCat && matchSearch;
+  });
+
+  grid.innerHTML = list.map(m=>`
+    <div class="mentor-card reveal">
+      <div class="mentor-top">
+        <div class="mentor-avatar" style="background:${m.avatarBg};color:${m.avatarColor}">${m.avatar}</div>
+        <div class="mentor-info">
+          <div class="mentor-name">${m.name}</div>
+          <div class="mentor-role">${m.role}</div>
+          <div class="mentor-company"><i class="fas fa-building"></i>${m.company} · ${m.experience} tahun</div>
+        </div>
+      </div>
+      <div class="mentor-tags">${m.tags.slice(0,4).map(t=>`<span class="mtag">${t}</span>`).join('')}${m.tags.length>4?`<span class="mtag">+${m.tags.length-4}</span>`:''}</div>
+      <div class="mentor-stats">
+        <div class="mstat"><div class="mstat-num">${m.rating}⭐</div><div class="mstat-label">Rating</div></div>
+        <div class="mstat"><div class="mstat-num">${m.sessions}</div><div class="mstat-label">Sesi</div></div>
+        <div class="mstat"><div class="mstat-num">${m.experience}th</div><div class="mstat-label">Exp.</div></div>
+      </div>
+      <div class="mentor-rate">
+        <div>
+          ${m.free ? `<div class="rate-free">GRATIS 🎁</div>` : `<div class="rate-price">Rp ${m.price.toLocaleString('id-ID')}</div>`}
+          <div class="rate-label">${m.free ? 'untuk mahasiswa aktif' : 'per sesi (60 menit)'}</div>
+        </div>
+        <div class="rating-stars"><span class="stars">★★★★★</span> ${m.rating}</div>
+      </div>
+      <div class="mentor-actions">
+        <button class="profile-btn" onclick="openDrawer('${m.id}')"><i class="fas fa-user"></i> Profil</button>
+        <button class="book-btn" onclick="openBooking('${m.id}')">📅 Booking Sesi</button>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+}
+
+// ===== FILTER =====
+function filterMentors(btn, cat){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = cat;
+  renderMentors();
+}
+function searchMentors(){
+  searchQuery = document.getElementById('searchInput').value.toLowerCase();
+  renderMentors();
+}
+
+// ===== DRAWER =====
+function openDrawer(id){
+  const m = mentors.find(x=>x.id===id);
+  selectedMentor = m;
+  document.getElementById('drawerBody').innerHTML = `
+    <div class="drawer-mentor-top">
+      <div class="drawer-avatar" style="background:${m.avatarBg};color:${m.avatarColor}">${m.avatar}</div>
+      <div>
+        <div class="drawer-name">${m.name}</div>
+        <div class="drawer-role">${m.role}</div>
+        <div class="drawer-company-badge"><i class="fas fa-building"></i> ${m.company} · ${m.experience} tahun pengalaman</div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="drawer-section-title">Tentang Mentor</div>
+    <div class="bio-text">${m.bio}</div>
+
+    <div class="section-divider"></div>
+    <div class="drawer-section-title">Area Keahlian</div>
+    <div class="expertise-list">${m.expertise.map(e=>`<span class="exp-tag">${e}</span>`).join('')}</div>
+
+    <div class="section-divider"></div>
+    <div class="drawer-section-title">Ketersediaan Minggu Ini</div>
+    <div class="availability-grid">${m.availability.map(a=>`
+      <div class="avail-slot ${m.bookedSlots.includes(a)?'booked':'available'}">${m.bookedSlots.includes(a)?'🔒 '+a:'✓ '+a}</div>
+    `).join('')}</div>
+
+    <div class="section-divider"></div>
+    <div class="drawer-section-title">Review Terbaru (${m.reviews.length})</div>
+    <div class="reviews-list">${m.reviews.map(r=>`
+      <div class="review-item">
+        <div class="review-top">
+          <div class="reviewer-name">${r.name}</div>
+          <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+        </div>
+        <div class="review-text">${r.text}</div>
+      </div>
+    `).join('')}</div>
+
+    <button class="book-drawer-btn" onclick="openBooking('${m.id}');closeDrawerBtn()">📅 Booking Sesi dengan ${m.name.split(' ')[0]}</button>
+  `;
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeDrawer(e){if(e.target===document.getElementById('drawerOverlay')) closeDrawerBtn();}
+function closeDrawerBtn(){document.getElementById('drawerOverlay').classList.remove('open');}
+
+// ===== BOOKING MODAL =====
+function openBooking(id){
+  const m = mentors.find(x=>x.id===id);
+  selectedMentor = m;
+  selectedSlot = null;
+  document.getElementById('bookMentorName').textContent = `Booking Sesi: ${m.name}`;
+  const availableSlots = m.availability.filter(a=>!m.bookedSlots.includes(a));
+  document.getElementById('slotGrid').innerHTML = availableSlots.map(s=>`
+    <div class="slot-option" onclick="selectSlot(this,'${s}')">${s}</div>
+  `).join('');
+  openModal('book');
+}
+function selectSlot(el, slot){
+  document.querySelectorAll('.slot-option').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSlot = slot;
+}
+function confirmBook(){
+  closeModal('book');
+  showToast('📅 Sesi berhasil dibooking! Cek email untuk konfirmasi.');
+}
+
+// ===== RENDER SESSIONS =====
+function renderSessions(){
+  const list = document.getElementById('sessionsList');
+  const statusMap = {upcoming:'status-upcoming',done:'status-done',cancelled:'status-cancelled'};
+  const statusLabel = {upcoming:'Akan Datang',done:'Selesai',cancelled:'Dibatalkan'};
+  list.innerHTML = `<div class="sessions-header">📅 Jadwal & Riwayat Sesi</div>` +
+  sessions.map(s=>`
+    <div class="session-item">
+      <div class="session-avatar" style="background:${s.avBg};color:${s.avColor}">${s.av}</div>
+      <div class="session-info">
+        <div class="session-name">${s.mentor}</div>
+        <div class="session-topic">${s.topic}</div>
+      </div>
+      <div class="session-meta">
+        <div class="session-date">${s.date}</div>
+        <span class="session-status ${statusMap[s.status]}">${statusLabel[s.status]}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== MODAL =====
+function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+});
+
+// ===== CHAT =====
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const val = input.value.trim();
+  if(!val) return;
+  const body = document.getElementById('chatBody');
+  const msg = document.createElement('div');
+  msg.className = 'msg me';
+  msg.textContent = val;
+  body.appendChild(msg);
+  body.scrollTop = body.scrollHeight;
+  input.value = '';
+  setTimeout(()=>{
+    const reply = document.createElement('div');
+    reply.className = 'msg them';
+    reply.textContent = 'Siap, nanti kita bahas lebih dalam saat sesi ya! 😊';
+    body.appendChild(reply);
+    body.scrollTop = body.scrollHeight;
+  },1200);
+}
+
+// ===== TOAST =====
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastText').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ===== INIT =====
+renderMentors();
+renderSessions();
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gamification & Reward – SkillBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --bg:#0a0d14;--bg2:#111520;--bg3:#161b28;--card:#1a2035;--card2:#1e2640;
+  --accent:#4f8ef7;--accent2:#7b5ef8;--accent3:#38d9a9;--accent4:#f7884f;
+  --gold:#f5c842;--gold2:#ff9f00;--silver:#a0aec0;--bronze:#cd7f32;
+  --text:#e8edf8;--text2:#8a96b8;--text3:#5a6285;--border:#252d47;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;text-decoration:none;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s;padding:.25rem 0;border-bottom:2px solid transparent;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent);}
+.nav-cta{display:flex;gap:.75rem;align-items:center;}
+.btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-primary:hover{opacity:.85;}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:110px 5% 0;background:var(--bg2);position:relative;overflow:hidden;}
+.header-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.orb-gold{width:500px;height:500px;background:radial-gradient(circle,rgba(245,200,66,.12),transparent 70%);top:-150px;right:-100px;}
+.orb-purple{width:400px;height:400px;background:radial-gradient(circle,rgba(123,94,248,.1),transparent 70%);bottom:-100px;left:-80px;}
+.header-inner{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:end;padding-bottom:0;}
+.breadcrumb{font-size:.8rem;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.breadcrumb a{color:var(--text3);text-decoration:none;transition:color .2s;}
+.breadcrumb a:hover{color:var(--accent);}
+.page-title{font-family:'Sora',sans-serif;font-weight:900;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-1.5px;margin-bottom:.75rem;line-height:1.05;}
+.page-title .grad{background:linear-gradient(90deg,var(--gold),var(--accent4),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.page-subtitle{color:var(--text2);font-size:1rem;max-width:560px;line-height:1.7;margin-bottom:1.5rem;}
+
+/* LEVEL HERO CARD */
+.level-hero{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem 2rem;min-width:320px;position:relative;overflow:hidden;}
+.level-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.06),rgba(247,136,79,.04),transparent);pointer-events:none;}
+.lh-top{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;}
+.avatar-ring{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--accent4));padding:3px;flex-shrink:0;}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+.lh-info{}
+.lh-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.15rem;}
+.lh-level{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .65rem;border-radius:100px;background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(247,136,79,.1));border:1px solid rgba(245,200,66,.25);font-size:.75rem;font-weight:700;color:var(--gold);}
+.xp-bar-wrap{margin-bottom:.75rem;}
+.xp-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--text2);margin-bottom:.4rem;}
+.xp-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.xp-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--accent4));width:72%;transition:width 1.2s ease;position:relative;}
+.xp-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:shimmer 2s infinite;}
+@keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+.lh-stats{display:flex;gap:1.25rem;}
+.lh-stat{display:flex;flex-direction:column;gap:.15rem;text-align:center;}
+.lh-stat-num{font-family:'Sora',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);}
+.lh-stat-label{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;}
+
+/* ── TABS ── */
+.tabs-row{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg2);padding:0 5%;}
+.tab-btn{padding:1rem 1.5rem;border:none;background:transparent;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:.5rem;}
+.tab-btn:hover{color:var(--text2);}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--gold);}
+.tab-btn .tab-badge{background:var(--accent);color:#fff;font-size:.65rem;padding:.1rem .35rem;border-radius:100px;}
+
+/* ── MAIN BODY ── */
+.page-body{padding:2.5rem 5%;max-width:1400px;margin:0 auto;}
+.tab-panel{display:none;animation:fadeUp .35s ease;}
+.tab-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── OVERVIEW TAB ── */
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:2rem;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.25rem;position:relative;overflow:hidden;transition:border-color .25s;}
+.stat-card:hover{border-color:rgba(79,142,247,.3);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0;}
+.stat-card.accent1::before{background:linear-gradient(90deg,var(--gold),var(--accent4));}
+.stat-card.accent2::before{background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.stat-card.accent3::before{background:linear-gradient(90deg,var(--accent3),var(--accent));}
+.stat-card.accent4::before{background:linear-gradient(90deg,var(--accent2),var(--accent4));}
+.sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.9rem;}
+.sc-val{font-family:'Sora',sans-serif;font-weight:800;font-size:1.7rem;letter-spacing:-1px;margin-bottom:.2rem;}
+.sc-label{font-size:.8rem;color:var(--text2);}
+.sc-delta{font-size:.75rem;color:var(--accent3);margin-top:.3rem;}
+
+/* ACTIVITY & MISSIONS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;}
+.panel-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;}
+.panel-title-left{display:flex;align-items:center;gap:.5rem;}
+.panel-title i{color:var(--accent4);}
+.see-all{font-size:.78rem;color:var(--accent);cursor:pointer;font-weight:500;}
+
+/* MISSION ITEMS */
+.mission-list{display:flex;flex-direction:column;gap:.85rem;}
+.mission-item{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;border-radius:12px;background:var(--bg3);border:1px solid var(--border);transition:border-color .2s;}
+.mission-item:hover{border-color:rgba(79,142,247,.25);}
+.mission-item.done{opacity:.65;}
+.mission-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.mission-body{flex:1;}
+.mission-name{font-size:.875rem;font-weight:600;color:var(--text);margin-bottom:.25rem;}
+.mission-desc{font-size:.75rem;color:var(--text3);}
+.mission-progress{margin-top:.4rem;}
+.mp-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.mp-fill{height:100%;border-radius:2px;transition:width .8s ease;}
+.mission-reward{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;flex-shrink:0;}
+.xp-pill{display:flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:100px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);font-size:.72rem;font-weight:700;color:var(--gold);white-space:nowrap;}
+.mission-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.65rem;cursor:pointer;transition:all .2s;}
+.mission-check.done{background:var(--accent3);border-color:var(--accent3);color:#fff;}
+
+/* STREAK */
+.streak-widget{padding:1.25rem;border-radius:14px;background:linear-gradient(135deg,rgba(247,136,79,.1),rgba(245,200,66,.06));border:1px solid rgba(247,136,79,.2);text-align:center;margin-bottom:1.25rem;}
+.streak-fire{font-size:2.5rem;margin-bottom:.3rem;display:block;}
+.streak-num{font-family:'Sora',sans-serif;font-weight:900;font-size:2.4rem;color:var(--accent4);letter-spacing:-1px;}
+.streak-label{font-size:.8rem;color:var(--text2);}
+.streak-days{display:flex;gap:.4rem;justify-content:center;margin-top:1rem;}
+.sday{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--text3);font-weight:600;}
+.sday.done{background:var(--accent4);border-color:var(--accent4);color:#fff;}
+.sday.today{border-color:var(--gold);color:var(--gold);}
+
+/* ACTIVITY FEED */
+.activity-list{display:flex;flex-direction:column;gap:.75rem;}
+.act-item{display:flex;align-items:center;gap:.85rem;padding:.75rem;border-radius:10px;background:var(--bg3);border:1px solid var(--border);}
+.act-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.act-body{flex:1;}
+.act-text{font-size:.82rem;color:var(--text);line-height:1.4;}
+.act-time{font-size:.7rem;color:var(--text3);margin-top:.15rem;}
+.act-xp{font-size:.75rem;font-weight:700;color:var(--gold);white-space:nowrap;}
+
+/* ── BADGES TAB ── */
+.badges-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.category-tabs{display:flex;gap:.5rem;flex-wrap:wrap;}
+.cat-btn{padding:.4rem .9rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.8rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.cat-btn.active,.cat-btn:hover{background:var(--accent4);border-color:var(--accent4);color:#fff;}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;}
+.badge-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.25rem;text-align:center;transition:all .3s;cursor:pointer;position:relative;}
+.badge-card:hover{transform:translateY(-4px);border-color:rgba(245,200,66,.3);}
+.badge-card.locked{opacity:.45;filter:grayscale(1);}
+.badge-card.locked:hover{transform:none;}
+.badge-card.earned{border-color:rgba(245,200,66,.35);}
+.badge-card.earned::after{content:'✓';position:absolute;top:.5rem;right:.5rem;width:18px;height:18px;border-radius:50%;background:var(--accent3);color:#fff;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.badge-emoji{font-size:2.4rem;margin-bottom:.75rem;display:block;}
+.badge-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.82rem;margin-bottom:.3rem;}
+.badge-desc{font-size:.72rem;color:var(--text3);line-height:1.4;}
+.badge-xp{display:inline-flex;align-items:center;gap:.25rem;margin-top:.6rem;padding:.2rem .5rem;border-radius:100px;background:rgba(245,200,66,.1);font-size:.7rem;font-weight:700;color:var(--gold);}
+.badge-rarity{font-size:.68rem;font-weight:600;margin-top:.3rem;}
+.rarity-common{color:var(--text3);}
+.rarity-rare{color:var(--accent);}
+.rarity-epic{color:var(--accent2);}
+.rarity-legendary{color:var(--gold);}
+
+/* ── LEADERBOARD TAB ── */
+.lb-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.lb-period{display:flex;gap:.5rem;}
+.period-btn{padding:.4rem .9rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.8rem;cursor:pointer;transition:all .2s;}
+.period-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.podium{display:flex;justify-content:center;align-items:flex-end;gap:1.5rem;margin-bottom:2rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:20px;position:relative;overflow:hidden;}
+.podium::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,200,66,.05),transparent);pointer-events:none;}
+.podium-item{display:flex;flex-direction:column;align-items:center;gap:.6rem;}
+.podium-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;font-family:'Sora',sans-serif;border:3px solid transparent;transition:transform .3s;}
+.podium-item:hover .podium-avatar{transform:scale(1.08);}
+.p1 .podium-avatar{width:64px;height:64px;font-size:1.5rem;border-color:var(--gold);box-shadow:0 0 20px rgba(245,200,66,.3);}
+.p2 .podium-avatar{border-color:var(--silver);}
+.p3 .podium-avatar{border-color:var(--bronze);}
+.podium-crown{font-size:1.1rem;margin-bottom:.1rem;}
+.podium-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.82rem;text-align:center;}
+.podium-pts{font-size:.75rem;color:var(--text2);}
+.podium-rank-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;font-family:'Sora',sans-serif;}
+.rank-1{background:var(--gold);color:#0a0d14;}
+.rank-2{background:var(--silver);color:#0a0d14;}
+.rank-3{background:var(--bronze);color:#fff;}
+.podium-bar{width:60px;border-radius:8px 8px 0 0;transition:height .6s ease;}
+.p1 .podium-bar{height:80px;background:linear-gradient(180deg,rgba(245,200,66,.4),rgba(245,200,66,.1));}
+.p2 .podium-bar{height:56px;background:linear-gradient(180deg,rgba(160,174,192,.3),rgba(160,174,192,.1));}
+.p3 .podium-bar{height:40px;background:linear-gradient(180deg,rgba(205,127,50,.3),rgba(205,127,50,.1));}
+
+.lb-list{display:flex;flex-direction:column;gap:.6rem;}
+.lb-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:12px;background:var(--card);border:1px solid var(--border);transition:border-color .2s;}
+.lb-item:hover{border-color:rgba(79,142,247,.25);}
+.lb-item.me{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.04);}
+.lb-rank{width:28px;font-family:'Sora',sans-serif;font-weight:800;font-size:.9rem;color:var(--text3);text-align:center;flex-shrink:0;}
+.lb-rank.top3{color:var(--gold);}
+.lb-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;font-family:'Sora',sans-serif;flex-shrink:0;}
+.lb-info{flex:1;}
+.lb-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.875rem;}
+.lb-uni{font-size:.75rem;color:var(--text3);}
+.lb-badges-mini{display:flex;gap:.25rem;margin-top:.2rem;}
+.lb-badge-mini{font-size:.75rem;}
+.lb-pts{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;}
+.lb-pts-num{font-family:'Sora',sans-serif;font-weight:800;font-size:.95rem;color:var(--gold);}
+.lb-pts-label{font-size:.7rem;color:var(--text3);}
+.lb-delta{font-size:.72rem;padding:.15rem .45rem;border-radius:100px;}
+.delta-up{color:var(--accent3);background:rgba(56,217,169,.1);}
+.delta-down{color:#f85e5e;background:rgba(248,94,94,.1);}
+.delta-same{color:var(--text3);}
+
+/* ── REWARDS TAB ── */
+.rewards-balance{display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem;padding:1.5rem 2rem;background:linear-gradient(135deg,var(--card),rgba(245,200,66,.06));border:1px solid rgba(245,200,66,.2);border-radius:20px;}
+.rb-coin{font-size:2.8rem;}
+.rb-info{flex:1;}
+.rb-label{font-size:.8rem;color:var(--text2);margin-bottom:.2rem;}
+.rb-amount{font-family:'Sora',sans-serif;font-weight:900;font-size:2.2rem;color:var(--gold);letter-spacing:-1px;}
+.rb-sub{font-size:.78rem;color:var(--text3);margin-top:.15rem;}
+.rb-actions{display:flex;gap:.75rem;}
+.rewards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;}
+.reward-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s;cursor:pointer;}
+.reward-card:hover{transform:translateY(-4px);border-color:rgba(245,200,66,.3);box-shadow:0 8px 32px rgba(245,200,66,.08);}
+.reward-card.redeemed{opacity:.55;}
+.rc-header{height:100px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;}
+.rc-body{padding:1.25rem;}
+.rc-brand{font-size:.72rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.3rem;}
+.rc-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem;}
+.rc-desc{font-size:.78rem;color:var(--text2);line-height:1.5;margin-bottom:1rem;}
+.rc-footer{display:flex;justify-content:space-between;align-items:center;}
+.rc-cost{display:flex;align-items:center;gap:.3rem;font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;color:var(--gold);}
+.rc-stock{font-size:.72rem;color:var(--text3);}
+.redeem-btn{padding:.4rem .9rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--gold),var(--accent4));color:#0a0d14;font-size:.78rem;font-weight:700;cursor:pointer;transition:opacity .2s;font-family:'DM Sans',sans-serif;}
+.redeem-btn:hover{opacity:.85;}
+.redeem-btn:disabled{opacity:.4;cursor:default;}
+.rc-tag{position:absolute;top:.5rem;right:.5rem;padding:.2rem .55rem;border-radius:100px;font-size:.65rem;font-weight:700;}
+.rc-tag.hot{background:rgba(248,94,94,.15);color:#f85e5e;border:1px solid rgba(248,94,94,.25);}
+.rc-tag.new{background:rgba(56,217,169,.15);color:var(--accent3);border:1px solid rgba(56,217,169,.25);}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:440px;width:100%;position:relative;animation:scaleIn .3s ease;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;}
+@keyframes scaleIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:3000;background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:1rem 1.5rem;display:flex;align-items:center;gap:.75rem;transform:translateX(130%);transition:transform .35s ease;box-shadow:0 12px 40px rgba(0,0,0,.5);}
+.toast.show{transform:translateX(0);}
+.toast-icon{font-size:1.2rem;}
+.toast-text{font-size:.875rem;font-weight:500;}
+
+/* ── LEVEL UP MODAL ── */
+.levelup-modal{text-align:center;}
+.lu-emoji{font-size:4rem;display:block;margin-bottom:.5rem;animation:bounce 1s ease;}
+@keyframes bounce{0%,100%{transform:scale(1);}40%{transform:scale(1.2);}70%{transform:scale(.95);}}
+.lu-title{font-family:'Sora',sans-serif;font-weight:900;font-size:1.6rem;background:linear-gradient(90deg,var(--gold),var(--accent4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem;}
+.lu-sub{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem;}
+.lu-rewards{display:flex;gap:1rem;justify-content:center;margin-bottom:1.5rem;}
+.lu-reward{text-align:center;padding:.75rem 1.25rem;background:var(--bg3);border:1px solid var(--border);border-radius:12px;}
+.lu-reward-icon{font-size:1.4rem;display:block;margin-bottom:.3rem;}
+.lu-reward-val{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;color:var(--gold);}
+.lu-reward-label{font-size:.7rem;color:var(--text3);}
+
+@media(max-width:1100px){.overview-grid{grid-template-columns:repeat(2,1fr);}.three-col{grid-template-columns:1fr 1fr;}}
+@media(max-width:900px){
+  .nav-links{display:none;}.header-inner{grid-template-columns:1fr;}.level-hero{min-width:auto;}
+  .two-col,.three-col{grid-template-columns:1fr;}.overview-grid{grid-template-columns:repeat(2,1fr);}
+  .badges-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:600px){.overview-grid{grid-template-columns:1fr 1fr;}.tabs-row{gap:0;overflow-x:auto;}.tab-btn{white-space:nowrap;padding:.9rem 1rem;font-size:.8rem;}}
+
+  /* ===== NAV UNIVERSAL ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;text-decoration:none;}
+  .nav-links{display:flex;gap:1.4rem;list-style:none;}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.84rem;font-weight:500;transition:color .2s;padding:.25rem 0;border-bottom:2px solid transparent;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent);}
+  .nav-cta{display:flex;gap:.75rem;align-items:center;}
+  .btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;display:inline-flex;align-items:center;}
+  .btn-primary:hover{opacity:.85;}
+  /* mobile nav */
+  @media(max-width:860px){.nav-links{display:none;}.nav-cta .btn-ghost{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">SkillBridge</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="lowongan.html">Lowongan</a></li>
+    <li><a href="skill-assessment.html">Assessment</a></li>
+    <li><a href="mentorship.html">Mentorship</a></li>
+    <li><a href="portfolio-builder.html">Portfolio</a></li>
+    <li><a href="gamification.html" class="active">Rewards</a></li>
+    <li><a href="chat.html">Chat</a></li>
+    <li><a href="profil.html">Profil</a></li>
+  </ul>
+    <div class="nav-cta">
+    <button class="btn-ghost" onclick="SBAuth.openLogin()">Masuk</button>
+    <button class="btn-primary" onclick="SBAuth.openRegister()">Daftar Gratis</button>
+  </div>
+
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-orb orb-gold"></div>
+  <div class="header-orb orb-purple"></div>
+  <div class="header-inner">
+    <div>
+      <div class="breadcrumb"><a href="index.html">Beranda</a><i class="fas fa-chevron-right" style="font-size:.65rem"></i><span>Gamification & Reward</span></div>
+      <h1 class="page-title">Kumpulkan <span class="grad">XP & Reward</span><br>Dari Setiap Aksi</h1>
+      <p class="page-subtitle">Setiap lamaran, sertifikat, dan sesi mentoring menghasilkan poin. Naiki peringkat, raih badge eksklusif, dan tukarkan reward nyata.</p>
+    </div>
+    <!-- LEVEL HERO CARD -->
+    <div class="level-hero">
+      <div class="lh-top">
+        <div class="avatar-ring"><div class="avatar-inner">🧑‍💻</div></div>
+        <div class="lh-info">
+          <div class="lh-name">Sabrina Ananda</div>
+          <div class="lh-level"><i class="fas fa-crown" style="font-size:.7rem"></i> Level 14 — Rising Star</div>
+        </div>
+      </div>
+      <div class="xp-bar-wrap">
+        <div class="xp-meta"><span>XP Progress</span><span id="xpDisplay">3.600 / 5.000 XP</span></div>
+        <div class="xp-track"><div class="xp-fill" id="xpBar" style="width:72%"></div></div>
+      </div>
+      <div class="lh-stats">
+        <div class="lh-stat"><div class="lh-stat-num" id="totalXp">3.600</div><div class="lh-stat-label">Total XP</div></div>
+        <div class="lh-stat"><div class="lh-stat-num" id="coinCount">1.240</div><div class="lh-stat-label">Koin</div></div>
+        <div class="lh-stat"><div class="lh-stat-num">18</div><div class="lh-stat-label">Badge</div></div>
+        <div class="lh-stat"><div class="lh-stat-num">#42</div><div class="lh-stat-label">Ranking</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-row">
+  <button class="tab-btn active" onclick="switchTab('overview',this)"><i class="fas fa-chart-bar"></i> Overview</button>
+  <button class="tab-btn" onclick="switchTab('missions',this)"><i class="fas fa-tasks"></i> Misi <span class="tab-badge">5</span></button>
+  <button class="tab-btn" onclick="switchTab('badges',this)"><i class="fas fa-medal"></i> Badge Koleksi</button>
+  <button class="tab-btn" onclick="switchTab('leaderboard',this)"><i class="fas fa-trophy"></i> Leaderboard</button>
+  <button class="tab-btn" onclick="switchTab('rewards',this)"><i class="fas fa-gift"></i> Tukar Reward</button>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- ═══ OVERVIEW ═══ -->
+  <div id="tab-overview" class="tab-panel active">
+    <div class="overview-grid">
+      <div class="stat-card accent1">
+        <div class="sc-icon" style="background:rgba(245,200,66,.12);color:var(--gold)"><i class="fas fa-star"></i></div>
+        <div class="sc-val" style="color:var(--gold)">3.600</div>
+        <div class="sc-label">Total XP Diraih</div>
+        <div class="sc-delta">+240 XP minggu ini 🔥</div>
+      </div>
+      <div class="stat-card accent2">
+        <div class="sc-icon" style="background:rgba(79,142,247,.12);color:var(--accent)"><i class="fas fa-coins"></i></div>
+        <div class="sc-val" style="color:var(--accent)">1.240</div>
+        <div class="sc-label">SkillCoin</div>
+        <div class="sc-delta">+80 koin kemarin ⚡</div>
+      </div>
+      <div class="stat-card accent3">
+        <div class="sc-icon" style="background:rgba(56,217,169,.12);color:var(--accent3)"><i class="fas fa-medal"></i></div>
+        <div class="sc-val" style="color:var(--accent3)">18</div>
+        <div class="sc-label">Badge Diraih</div>
+        <div class="sc-delta">2 badge baru bulan ini 🏅</div>
+      </div>
+      <div class="stat-card accent4">
+        <div class="sc-icon" style="background:rgba(247,136,79,.12);color:var(--accent4)"><i class="fas fa-fire"></i></div>
+        <div class="sc-val" style="color:var(--accent4)">14</div>
+        <div class="sc-label">Streak Hari</div>
+        <div class="sc-delta">Rekor pribadi! 🎉</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- STREAK WIDGET -->
+      <div class="panel">
+        <div class="panel-title"><div class="panel-title-left"><i class="fas fa-fire" style="color:var(--accent4)"></i> Daily Streak</div></div>
+        <div class="streak-widget">
+          <span class="streak-fire">🔥</span>
+          <div class="streak-num">14</div>
+          <div class="streak-label">hari berturut-turut login & aktif</div>
+          <div class="streak-days">
+            <div class="sday done">S</div><div class="sday done">M</div><div class="sday done">T</div>
+            <div class="sday done">W</div><div class="sday done">T</div><div class="sday done">F</div>
+            <div class="sday today">S</div>
+          </div>
+        </div>
+        <div style="font-size:.8rem;color:var(--text2);text-align:center;line-height:1.6">
+          Pertahankan streak 7 hari lagi untuk unlock <strong style="color:var(--gold)">badge Unstoppable 🏆</strong> dan bonus <strong style="color:var(--gold)">+500 XP</strong>!
+        </div>
+      </div>
+
+      <!-- ACTIVE MISSIONS PREVIEW -->
+      <div class="panel">
+        <div class="panel-title">
+          <div class="panel-title-left"><i class="fas fa-tasks" style="color:var(--accent2)"></i> Misi Aktif</div>
+          <span class="see-all" onclick="switchTab('missions',document.querySelectorAll('.tab-btn')[1])">Lihat semua →</span>
+        </div>
+        <div class="mission-list" id="missionPreview"></div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY FEED -->
+    <div class="panel">
+      <div class="panel-title"><div class="panel-title-left"><i class="fas fa-history" style="color:var(--accent)"></i> Aktivitas Terbaru</div></div>
+      <div class="activity-list" id="activityFeed"></div>
+    </div>
+  </div>
+
+  <!-- ═══ MISSIONS ═══ -->
+  <div id="tab-missions" class="tab-panel">
+    <div class="three-col">
+      <div class="panel">
+        <div class="panel-title"><div class="panel-title-left">⚡ Misi Harian</div><span class="see-all" style="color:var(--accent4)">Reset 8j lagi</span></div>
+        <div class="mission-list" id="dailyMissions"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div class="panel-title-left">📅 Misi Mingguan</div><span class="see-all" style="color:var(--accent4)">Reset 3h lagi</span></div>
+        <div class="mission-list" id="weeklyMissions"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div class="panel-title-left">🏆 Tantangan Spesial</div></div>
+        <div class="mission-list" id="specialMissions"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BADGES ═══ -->
+  <div id="tab-badges" class="tab-panel">
+    <div class="badges-header">
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:.3rem">Koleksi Badge <span style="color:var(--gold)">18 / 48</span></div>
+        <div style="font-size:.83rem;color:var(--text2)">Kumpulkan semua badge untuk naik ke level Legend!</div>
+      </div>
+      <div class="category-tabs" id="badgeCategoryTabs">
+        <button class="cat-btn active" onclick="filterBadges('all',this)">Semua</button>
+        <button class="cat-btn" onclick="filterBadges('earned',this)">Diraih</button>
+        <button class="cat-btn" onclick="filterBadges('career',this)">Karir</button>
+        <button class="cat-btn" onclick="filterBadges('skill',this)">Skill</button>
+        <button class="cat-btn" onclick="filterBadges('social',this)">Sosial</button>
+        <button class="cat-btn" onclick="filterBadges('locked',this)">Terkunci</button>
+      </div>
+    </div>
+    <div class="badges-grid" id="badgesGrid"></div>
+  </div>
+
+  <!-- ═══ LEADERBOARD ═══ -->
+  <div id="tab-leaderboard" class="tab-panel">
+    <div class="lb-header">
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:.2rem">Peringkat Global</div>
+        <div style="font-size:.83rem;color:var(--text2)">Kamu berada di posisi <strong style="color:var(--gold)">#42</strong> dari 15.800 pengguna</div>
+      </div>
+      <div class="lb-period">
+        <button class="period-btn active" onclick="setPeriod(this,'weekly')">Mingguan</button>
+        <button class="period-btn" onclick="setPeriod(this,'monthly')">Bulanan</button>
+        <button class="period-btn" onclick="setPeriod(this,'alltime')">All Time</button>
+      </div>
+    </div>
+
+    <!-- PODIUM -->
+    <div class="podium">
+      <div class="podium-item p2">
+        <div class="podium-avatar" style="background:linear-gradient(135deg,#4f8ef7,#7b5ef8)">R</div>
+        <div class="podium-rank-badge rank-2">2</div>
+        <div class="podium-name">Rini Kusuma</div>
+        <div class="podium-pts">5.820 XP</div>
+        <div class="podium-bar"></div>
+      </div>
+      <div class="podium-item p1">
+        <div class="podium-crown">👑</div>
+        <div class="podium-avatar" style="background:linear-gradient(135deg,#f5c842,#ff9f00)">A</div>
+        <div class="podium-rank-badge rank-1">1</div>
+        <div class="podium-name">Agus Pratama</div>
+        <div class="podium-pts">7.100 XP</div>
+        <div class="podium-bar"></div>
+      </div>
+      <div class="podium-item p3">
+        <div class="podium-avatar" style="background:linear-gradient(135deg,#38d9a9,#2bc0d9)">D</div>
+        <div class="podium-rank-badge rank-3">3</div>
+        <div class="podium-name">Dika Santoso</div>
+        <div class="podium-pts">4.990 XP</div>
+        <div class="podium-bar"></div>
+      </div>
+    </div>
+
+    <div class="lb-list" id="lbList"></div>
+  </div>
+
+  <!-- ═══ REWARDS ═══ -->
+  <div id="tab-rewards" class="tab-panel">
+    <div class="rewards-balance">
+      <div class="rb-coin">🪙</div>
+      <div class="rb-info">
+        <div class="rb-label">Saldo SkillCoin Kamu</div>
+        <div class="rb-amount" id="rewardCoinDisplay">1.240</div>
+        <div class="rb-sub">Gunakan koin untuk tukar voucher, akses premium, & hadiah menarik</div>
+      </div>
+      <div class="rb-actions">
+        <button class="btn-ghost" onclick="showToast('⚡','Riwayat penukaran dibuka!')"><i class="fas fa-history"></i> Riwayat</button>
+        <button class="btn-primary" onclick="showToast('🎯','Ikuti misi untuk dapat lebih banyak koin!')"><i class="fas fa-plus"></i> Tambah Koin</button>
+      </div>
+    </div>
+    <div class="rewards-grid" id="rewardsGrid"></div>
+  </div>
+
+</div><!-- end page-body -->
+
+<!-- MODAL LEVEL UP -->
+<div class="modal-overlay" id="modal-levelup">
+  <div class="modal levelup-modal">
+    <span class="lu-emoji">🎉</span>
+    <div class="lu-title">Level Up! Selamat!</div>
+    <p class="lu-sub">Kamu mencapai <strong>Level 15 — Pro Explorer</strong>!</p>
+    <div class="lu-rewards">
+      <div class="lu-reward"><span class="lu-reward-icon">⭐</span><div class="lu-reward-val">+500 XP</div><div class="lu-reward-label">Bonus XP</div></div>
+      <div class="lu-reward"><span class="lu-reward-icon">🪙</span><div class="lu-reward-val">+200</div><div class="lu-reward-label">SkillCoin</div></div>
+      <div class="lu-reward"><span class="lu-reward-icon">🏅</span><div class="lu-reward-val">1 Badge</div><div class="lu-reward-label">Baru</div></div>
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center" onclick="closeModal('levelup')">Klaim Hadiah! 🚀</button>
+  </div>
+</div>
+
+<!-- MODAL REDEEM CONFIRM -->
+<div class="modal-overlay" id="modal-redeem">
+  <div class="modal" style="text-align:center">
+    <button class="modal-close" onclick="closeModal('redeem')"><i class="fas fa-times"></i></button>
+    <div style="font-size:3rem;margin-bottom:.75rem" id="redeemEmoji">🎁</div>
+    <h3 id="redeemTitle" style="font-family:'Sora',sans-serif;font-weight:800;margin-bottom:.4rem">Konfirmasi Penukaran</h3>
+    <p id="redeemDesc" style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem"></p>
+    <div style="display:flex;gap:1rem">
+      <button class="btn-ghost" style="flex:1;justify-content:center" onclick="closeModal('redeem')">Batal</button>
+      <button class="btn-primary" style="flex:1;justify-content:center" onclick="confirmRedeem()">Tukar Sekarang 🎁</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="toast-icon" id="toastIcon">✅</span>&nbsp;<span class="toast-text" id="toastText">Berhasil!</span></div>
+
+<script>
+/* ═══════════════ DATA ═══════════════ */
+let userCoins = 1240;
+let userXP = 3600;
+let pendingRedeemCost = 0;
+
+const missions = {
+  daily: [
+    {id:'d1',name:'Lamar 1 Lowongan',desc:'Kirim lamaran ke minimal 1 posisi hari ini',icon:'📤',xp:50,coins:20,progress:1,total:1,done:true,color:'rgba(79,142,247,.12)'},
+    {id:'d2',name:'Cek AI Match Score',desc:'Lihat skor match pada 3 lowongan berbeda',icon:'🤖',xp:30,coins:10,progress:2,total:3,done:false,color:'rgba(123,94,248,.12)'},
+    {id:'d3',name:'Update Profil',desc:'Lengkapi minimal 1 bagian profil kamu',icon:'✏️',xp:40,coins:15,progress:0,total:1,done:false,color:'rgba(56,217,169,.12)'},
+    {id:'d4',name:'Baca 2 Artikel',desc:'Baca artikel karir di feed SkillBridge',icon:'📰',xp:25,coins:8,progress:1,total:2,done:false,color:'rgba(245,200,66,.12)'},
+  ],
+  weekly: [
+    {id:'w1',name:'Selesaikan 1 Assessment',desc:'Ambil dan selesaikan tes skill apapun',icon:'🏆',xp:200,coins:80,progress:0,total:1,done:false,color:'rgba(247,136,79,.12)'},
+    {id:'w2',name:'Booking Sesi Mentor',desc:'Jadwalkan 1 sesi mentoring pekan ini',icon:'👨‍🏫',xp:150,coins:60,progress:1,total:1,done:true,color:'rgba(123,94,248,.12)'},
+    {id:'w3',name:'5 Lamaran Terkirim',desc:'Lamar ke 5 lowongan yang berbeda',icon:'📩',xp:300,coins:100,progress:3,total:5,done:false,color:'rgba(56,217,169,.12)'},
+    {id:'w4',name:'Tambahkan Proyek Portfolio',desc:'Upload atau tambah 1 proyek baru',icon:'💼',xp:180,coins:70,progress:0,total:1,done:false,color:'rgba(79,142,247,.12)'},
+  ],
+  special: [
+    {id:'s1',name:'Streak Legend',desc:'Pertahankan streak 21 hari berturut-turut',icon:'🔥',xp:1000,coins:500,progress:14,total:21,done:false,color:'rgba(247,136,79,.15)'},
+    {id:'s2',name:'First Interview',desc:'Dapatkan undangan interview pertamamu',icon:'🎤',xp:500,coins:200,progress:0,total:1,done:false,color:'rgba(245,200,66,.12)'},
+    {id:'s3',name:'Skill Master',desc:'Raih sertifikat di 5 kategori berbeda',icon:'🎓',xp:800,coins:350,progress:2,total:5,done:false,color:'rgba(56,217,169,.12)'},
+  ]
+};
+
+const allBadges = [
+  {id:'b1',name:'First Step',emoji:'👟',desc:'Lamar pekerjaan pertamamu',xp:50,rarity:'common',category:'career',earned:true},
+  {id:'b2',name:'Speed Applier',emoji:'⚡',desc:'Lamar 10 pekerjaan dalam sehari',xp:200,rarity:'rare',category:'career',earned:true},
+  {id:'b3',name:'Profile Pro',emoji:'🪪',desc:'Lengkapi 100% profil',xp:100,rarity:'common',category:'career',earned:true},
+  {id:'b4',name:'Skill Seeker',emoji:'🔍',desc:'Ikuti assessment pertama',xp:150,rarity:'common',category:'skill',earned:true},
+  {id:'b5',name:'Certified Dev',emoji:'💻',desc:'Raih sertifikat Tech Level 1',xp:300,rarity:'rare',category:'skill',earned:true},
+  {id:'b6',name:'Design Eye',emoji:'🎨',desc:'Selesaikan UI/UX Assessment',xp:250,rarity:'rare',category:'skill',earned:true},
+  {id:'b7',name:'Mentor Seeker',emoji:'🧭',desc:'Booking sesi mentor pertama',xp:100,rarity:'common',category:'social',earned:true},
+  {id:'b8',name:'Chat Champ',emoji:'💬',desc:'Kirim 50 pesan ke recruiter',xp:150,rarity:'common',category:'social',earned:true},
+  {id:'b9',name:'Networker',emoji:'🤝',desc:'Connect dengan 10 profesional',xp:200,rarity:'rare',category:'social',earned:true},
+  {id:'b10',name:'7-Day Streak',emoji:'🔥',desc:'Login 7 hari berturut-turut',xp:250,rarity:'rare',category:'career',earned:true},
+  {id:'b11',name:'Portfolio Ready',emoji:'🗂️',desc:'Tambahkan 3 proyek portfolio',xp:300,rarity:'rare',category:'career',earned:true},
+  {id:'b12',name:'AI Explorer',emoji:'🤖',desc:'Gunakan fitur AI Match 20x',xp:200,rarity:'rare',category:'skill',earned:true},
+  {id:'b13',name:'Top 100',emoji:'🏅',desc:'Masuk top 100 leaderboard',xp:500,rarity:'epic',category:'career',earned:true},
+  {id:'b14',name:'Interview Ready',emoji:'🎤',desc:'Selesaikan mock interview AI',xp:400,rarity:'epic',category:'skill',earned:true},
+  {id:'b15',name:'Rising Star',emoji:'⭐',desc:'Capai Level 10',xp:600,rarity:'epic',category:'career',earned:true},
+  {id:'b16',name:'Data Wizard',emoji:'📊',desc:'Raih sertifikat Data Analytics',xp:350,rarity:'rare',category:'skill',earned:true},
+  {id:'b17',name:'Early Bird',emoji:'🌅',desc:'Login sebelum jam 7 pagi 5x',xp:150,rarity:'common',category:'social',earned:true},
+  {id:'b18',name:'Helpful',emoji:'❤️',desc:'Bantu 3 pengguna lain',xp:200,rarity:'rare',category:'social',earned:true},
+  {id:'b19',name:'Unstoppable',emoji:'💪',desc:'Streak 21 hari',xp:800,rarity:'legendary',category:'career',earned:false},
+  {id:'b20',name:'Legend Tier',emoji:'🏆',desc:'Capai level 25',xp:2000,rarity:'legendary',category:'career',earned:false},
+  {id:'b21',name:'Skill Master',emoji:'🎓',desc:'Raih 10 sertifikat berbeda',xp:1000,rarity:'epic',category:'skill',earned:false},
+  {id:'b22',name:'Community Pillar',emoji:'🌟',desc:'Berikan 20 review ke mentor',xp:600,rarity:'epic',category:'social',earned:false},
+  {id:'b23',name:'Hired!',emoji:'🎉',desc:'Dapatkan pekerjaan melalui SkillBridge',xp:1500,rarity:'legendary',category:'career',earned:false},
+  {id:'b24',name:'Content King',emoji:'📱',desc:'Post 10 artikel di feed',xp:400,rarity:'epic',category:'social',earned:false},
+];
+
+const leaderboardData = [
+  {rank:1,name:'Agus Pratama',uni:'UI — Teknik Informatika',avatar:'A',color:'linear-gradient(135deg,#f5c842,#ff9f00)',pts:7100,delta:'+2',badges:['🔥','🏆','⭐']},
+  {rank:2,name:'Rini Kusuma',uni:'ITB — Sistem Informasi',avatar:'R',color:'linear-gradient(135deg,#4f8ef7,#7b5ef8)',pts:5820,delta:'+5',badges:['⚡','💻','🎨']},
+  {rank:3,name:'Dika Santoso',uni:'UNPAD — Teknik Komputer',avatar:'D',color:'linear-gradient(135deg,#38d9a9,#2bc0d9)',pts:4990,delta:'-1',badges:['🤖','🎓']},
+  {rank:4,name:'Maya Putri',uni:'BINUS — DKV',avatar:'M',color:'linear-gradient(135deg,#f7884f,#f5c842)',pts:4450,delta:'+8',badges:['🎨','💬']},
+  {rank:5,name:'Budi Setiawan',uni:'UNAIR — Manajemen',avatar:'B',color:'linear-gradient(135deg,#7b5ef8,#4f8ef7)',pts:4100,delta:'=',badges:['🤝','📊']},
+  {rank:6,name:'Citra Lestari',uni:'UGM — Ilmu Komputer',avatar:'C',color:'linear-gradient(135deg,#38d9a9,#4f8ef7)',pts:3890,delta:'+3',badges:['🔍','⭐']},
+  {rank:7,name:'Eko Prabowo',uni:'ITS — Teknik Informatika',avatar:'E',color:'linear-gradient(135deg,#f5c842,#38d9a9)',pts:3720,delta:'-2',badges:['🏅']},
+  {rank:42,name:'Sabrina Ananda ← Kamu',uni:'UMM — Teknik Informatika',avatar:'S',color:'linear-gradient(135deg,#4f8ef7,#38d9a9)',pts:3600,delta:'+12',badges:['🔥','⭐','🎤'],isMe:true},
+];
+
+const rewards = [
+  {id:'r1',emoji:'☕',name:'Voucher Kopi Kenangan',brand:'Kopi Kenangan',desc:'Gratis 1 minuman apapun, berlaku di semua outlet',cost:200,stock:47,tag:'hot',color:'#6f3d2e'},
+  {id:'r2',emoji:'📚',name:'Udemy Course',brand:'Udemy',desc:'Diskon 85% untuk kursus pilihan (harga coret hingga $200)',cost:450,stock:20,tag:'',color:'#a435f0'},
+  {id:'r3',emoji:'💎',name:'SkillBridge Premium 1 Bulan',brand:'SkillBridge',desc:'Akses fitur premium: unlimited apply, priority match, AI CV',cost:600,stock:999,tag:'new',color:'#4f8ef7'},
+  {id:'r4',emoji:'🎮',name:'Voucher Steam IDR 50K',brand:'Steam',desc:'Digunakan untuk membeli game di platform Steam',cost:350,stock:12,tag:'',color:'#171a21'},
+  {id:'r5',emoji:'🛍️',name:'Voucher Shopee Rp 50.000',brand:'Shopee',desc:'Berlaku untuk semua transaksi minimum Rp 100.000',cost:300,stock:65,tag:'hot',color:'#f77c2c'},
+  {id:'r6',emoji:'📱',name:'Top-up Gopay Rp 25.000',brand:'Gojek',desc:'Transfer langsung ke akun Gopay kamu',cost:250,stock:30,tag:'',color:'#00aab5'},
+  {id:'r7',emoji:'🎓',name:'Mock Interview AI 5x',brand:'SkillBridge',desc:'5 sesi latihan interview dengan AI interviewer premium',cost:400,stock:999,tag:'new',color:'#7b5ef8'},
+  {id:'r8',emoji:'🔒',name:'Resume Review Pro',brand:'SkillBridge',desc:'Review CV oleh HR profesional berpengalaman',cost:500,stock:8,tag:'',color:'#38d9a9'},
+];
+
+const activities = [
+  {icon:'📤',bg:'rgba(79,142,247,.12)',text:'Kamu melamar posisi <strong>UI/UX Designer</strong> di Tokopedia',time:'2 jam lalu',xp:'+50 XP'},
+  {icon:'🏆',bg:'rgba(56,217,169,.12)',text:'Kamu meraih badge baru: <strong>Speed Applier ⚡</strong>',time:'5 jam lalu',xp:'+200 XP'},
+  {icon:'🔥',bg:'rgba(247,136,79,.12)',text:'Streak 14 hari dicapai! Bonus koin +30 dikreditkan',time:'Kemarin',xp:'+30 🪙'},
+  {icon:'🤖',bg:'rgba(123,94,248,.12)',text:'AI Match menganalisis profil kamu & menemukan 12 lowongan baru',time:'Kemarin',xp:'+15 XP'},
+  {icon:'📚',bg:'rgba(245,200,66,.12)',text:'Kamu menyelesaikan kursus <strong>React Advanced</strong>',time:'2 hari lalu',xp:'+180 XP'},
+  {icon:'👨‍🏫',bg:'rgba(56,217,169,.12)',text:'Sesi mentoring dengan <strong>Budi Santoso</strong> selesai',time:'3 hari lalu',xp:'+100 XP'},
+];
+
+/* ═══════════════ RENDER ═══════════════ */
+function renderMissionList(list, containerId) {
+  document.getElementById(containerId).innerHTML = list.map(m => `
+    <div class="mission-item${m.done?' done':''}">
+      <div class="mission-icon" style="background:${m.color}">${m.icon}</div>
+      <div class="mission-body">
+        <div class="mission-name">${m.name}</div>
+        <div class="mission-desc">${m.desc}</div>
+        ${!m.done ? `
+        <div class="mission-progress" style="margin-top:.5rem">
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--text3);margin-bottom:.3rem">
+            <span>Progress</span><span>${m.progress}/${m.total}</span>
+          </div>
+          <div class="mp-track"><div class="mp-fill" style="width:${(m.progress/m.total)*100}%;background:${m.progress===m.total?'var(--accent3)':'var(--accent)'}"></div></div>
+        </div>` : '<div style="font-size:.75rem;color:var(--accent3);margin-top:.3rem">✓ Selesai!</div>'}
+      </div>
+      <div class="mission-reward">
+        <div class="xp-pill">⭐ +${m.xp} XP</div>
+        <div class="xp-pill" style="background:rgba(79,142,247,.1);border-color:rgba(79,142,247,.2);color:var(--accent)">🪙 +${m.coins}</div>
+        ${m.done ? '<div class="mission-check done">✓</div>' : `<div class="mission-check" onclick="claimMission('${m.id}',${m.xp},${m.coins},this)"><i class="fas fa-check" style="font-size:.6rem"></i></div>`}
+      </div>
+    </div>
+  `).join('');
+}
+
+function claimMission(id, xp, coins, btn) {
+  btn.classList.add('done');
+  btn.closest('.mission-item').classList.add('done');
+  userXP += xp; userCoins += coins;
+  document.getElementById('totalXp').textContent = userXP.toLocaleString('id');
+  document.getElementById('coinCount').textContent = userCoins.toLocaleString('id');
+  document.getElementById('rewardCoinDisplay').textContent = userCoins.toLocaleString('id');
+  showToast('🎉', `+${xp} XP dan +${coins} koin dikreditkan!`);
+}
+
+function renderBadges(list) {
+  document.getElementById('badgesGrid').innerHTML = list.map(b => `
+    <div class="badge-card${b.earned?' earned':' locked'}" onclick="showBadgeDetail('${b.id}')">
+      <span class="badge-emoji">${b.emoji}</span>
+      <div class="badge-name">${b.name}</div>
+      <div class="badge-desc">${b.desc}</div>
+      <div class="badge-xp">⭐ ${b.xp} XP</div>
+      <div class="badge-rarity rarity-${b.rarity}">${{common:'Common',rare:'Rare',epic:'Epic ✨',legendary:'Legendary 🌟'}[b.rarity]}</div>
+    </div>
+  `).join('');
+}
+
+function filterBadges(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let list = allBadges;
+  if(cat==='earned') list = allBadges.filter(b=>b.earned);
+  else if(cat==='locked') list = allBadges.filter(b=>!b.earned);
+  else if(cat!=='all') list = allBadges.filter(b=>b.category===cat);
+  renderBadges(list);
+}
+
+function renderLeaderboard() {
+  document.getElementById('lbList').innerHTML = leaderboardData.map(u => `
+    <div class="lb-item${u.isMe?' me':''}">
+      <div class="lb-rank${u.rank<=3?' top3':''}">${u.rank<=3?'🥇🥈🥉'[u.rank-1]:'#'+u.rank}</div>
+      <div class="lb-avatar" style="background:${u.color}">${u.avatar}</div>
+      <div class="lb-info">
+        <div class="lb-name">${u.name}</div>
+        <div class="lb-uni">${u.uni}</div>
+        <div class="lb-badges-mini">${u.badges.map(b=>`<span class="lb-badge-mini">${b}</span>`).join('')}</div>
+      </div>
+      <div class="lb-pts">
+        <div class="lb-pts-num">${u.pts.toLocaleString('id')}</div>
+        <div class="lb-pts-label">XP total</div>
+        <span class="lb-delta ${u.delta.startsWith('+')?'delta-up':u.delta==='-'||u.delta.startsWith('-')?'delta-down':'delta-same'}">${u.delta==='='?'–':u.delta}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderRewards() {
+  document.getElementById('rewardsGrid').innerHTML = rewards.map(r => `
+    <div class="reward-card">
+      <div class="rc-header" style="background:${r.color}22">
+        ${r.tag?`<span class="rc-tag ${r.tag}">${r.tag.toUpperCase()}</span>`:''}
+        ${r.emoji}
+      </div>
+      <div class="rc-body">
+        <div class="rc-brand">${r.brand}</div>
+        <div class="rc-name">${r.name}</div>
+        <div class="rc-desc">${r.desc}</div>
+        <div class="rc-footer">
+          <div class="rc-cost">🪙 ${r.cost}</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.3rem">
+            <div class="rc-stock">Stok: ${r.stock}</div>
+            <button class="redeem-btn" ${userCoins < r.cost ? 'disabled' : ''} onclick="openRedeem('${r.id}','${r.emoji}','${r.name}',${r.cost})">
+              ${userCoins >= r.cost ? 'Tukar' : 'Koin Kurang'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderActivityFeed() {
+  document.getElementById('activityFeed').innerHTML = activities.map(a => `
+    <div class="act-item">
+      <div class="act-icon" style="background:${a.bg}">${a.icon}</div>
+      <div class="act-body">
+        <div class="act-text">${a.text}</div>
+        <div class="act-time">${a.time}</div>
+      </div>
+      <div class="act-xp">${a.xp}</div>
+    </div>
+  `).join('');
+}
+
+/* ═══════════════ UI ACTIONS ═══════════════ */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function setPeriod(btn, period) {
+  document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  showToast('📊','Menampilkan data '+{weekly:'mingguan',monthly:'bulanan',alltime:'all time'}[period]);
+}
+
+function openRedeem(id, emoji, name, cost) {
+  pendingRedeemCost = cost;
+  pendingRedeemId = id;
+  document.getElementById('redeemEmoji').textContent = emoji;
+  document.getElementById('redeemTitle').textContent = name;
+  document.getElementById('redeemDesc').textContent = `Penukaran akan memotong ${cost} SkillCoin dari saldo kamu (sisa: ${userCoins - cost} koin).`;
+  document.getElementById('modal-redeem').classList.add('open');
+}
+
+function confirmRedeem() {
+  userCoins -= pendingRedeemCost;
+  document.getElementById('coinCount').textContent = userCoins.toLocaleString('id');
+  document.getElementById('rewardCoinDisplay').textContent = userCoins.toLocaleString('id');
+  closeModal('redeem');
+  renderRewards();
+  showToast('🎁', 'Reward berhasil ditukar! Cek emailmu ya.');
+}
+
+function closeModal(id) { document.getElementById('modal-'+id).classList.remove('open'); }
+
+function showBadgeDetail(id) {
+  const b = allBadges.find(x=>x.id===id);
+  if(!b) return;
+  showToast(b.emoji, `${b.name} — ${b.desc} (+${b.xp} XP)`);
+}
+
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastText').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ═══════════════ INIT ═══════════════ */
+// Preview missions (first 3 daily)
+renderMissionList(missions.daily.slice(0,3), 'missionPreview');
+// Full mission tabs
+renderMissionList(missions.daily, 'dailyMissions');
+renderMissionList(missions.weekly, 'weeklyMissions');
+renderMissionList(missions.special, 'specialMissions');
+// Badges
+renderBadges(allBadges);
+// Leaderboard
+renderLeaderboard();
+// Rewards
+renderRewards();
+// Activity
+renderActivityFeed();
+
+// Show level up modal after 1.5s for demo
+setTimeout(() => {
+  document.getElementById('modal-levelup').classList.add('open');
+}, 1500);
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

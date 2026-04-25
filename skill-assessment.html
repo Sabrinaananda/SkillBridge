@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Assessment – SkillBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #0a0d14;
+    --bg2: #111520;
+    --bg3: #161b28;
+    --card: #1a2035;
+    --card2: #1e2640;
+    --accent: #4f8ef7;
+    --accent2: #7b5ef8;
+    --accent3: #38d9a9;
+    --accent4: #f7884f;
+    --text: #e8edf8;
+    --text2: #8a96b8;
+    --text3: #5a6285;
+    --border: #252d47;
+    --glow: rgba(79,142,247,0.18);
+    --glow2: rgba(123,94,248,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 5%;height:68px;
+    background:rgba(10,13,20,0.9);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-logo{
+    font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    letter-spacing:-0.5px;text-decoration:none;
+  }
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .nav-cta{display:flex;gap:.75rem;align-items:center;}
+  .btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;}
+  .btn-primary:hover{opacity:.85;}
+
+  /* PAGE HEADER */
+  .page-hero{
+    padding:120px 5% 60px;
+    position:relative;overflow:hidden;
+    background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+  }
+  .hero-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+  .orb1{width:500px;height:500px;background:rgba(123,94,248,.1);top:-100px;right:-100px;}
+  .orb2{width:300px;height:300px;background:rgba(79,142,247,.08);bottom:0;left:10%;}
+  .page-hero-inner{max-width:680px;position:relative;z-index:1;}
+  .breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--text3);margin-bottom:1.5rem;}
+  .breadcrumb a{color:var(--text3);text-decoration:none;transition:color .2s;}
+  .breadcrumb a:hover{color:var(--accent);}
+  .breadcrumb i{font-size:.65rem;}
+  .page-badge{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.4rem .9rem;border-radius:100px;
+    background:rgba(123,94,248,.1);border:1px solid rgba(123,94,248,.25);
+    font-size:.78rem;color:var(--accent2);font-weight:600;letter-spacing:.5px;
+    text-transform:uppercase;margin-bottom:1.25rem;
+  }
+  .page-hero h1{
+    font-family:'Sora',sans-serif;font-weight:800;
+    font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-1.5px;
+    margin-bottom:1rem;
+  }
+  .page-hero h1 span{
+    background:linear-gradient(90deg,var(--accent2),var(--accent3));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .page-hero p{color:var(--text2);font-size:1rem;line-height:1.75;max-width:520px;font-weight:300;}
+
+  /* STATS ROW */
+  .stats-row{
+    display:flex;gap:0;margin-top:2.5rem;
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    overflow:hidden;max-width:560px;
+  }
+  .stat-item{flex:1;padding:1.25rem 1.5rem;border-right:1px solid var(--border);}
+  .stat-item:last-child{border-right:none;}
+  .stat-num{font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:800;color:var(--text);}
+  .stat-label{font-size:.75rem;color:var(--text3);margin-top:.2rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
+
+  /* MAIN CONTENT */
+  .main-content{padding:3rem 5% 6rem;}
+
+  /* CATEGORY TABS */
+  .section-header{margin-bottom:2rem;}
+  .section-label{font-size:.75rem;color:var(--accent2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;}
+  h2{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-1px;margin-bottom:.75rem;}
+  .section-desc{color:var(--text2);font-size:.95rem;line-height:1.75;max-width:540px;}
+
+  .tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+  .tab{
+    padding:.55rem 1.2rem;border-radius:100px;border:1px solid var(--border);
+    background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;
+    font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;
+  }
+  .tab.active,.tab:hover{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+
+  /* ASSESSMENT GRID */
+  .assessment-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;margin-bottom:4rem;}
+  .assessment-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:1.5rem;transition:all .3s;position:relative;overflow:hidden;cursor:pointer;
+  }
+  .assessment-card::before{
+    content:'';position:absolute;inset:0;opacity:0;
+    background:linear-gradient(135deg,var(--glow2),transparent);transition:opacity .3s;
+  }
+  .assessment-card:hover{border-color:rgba(123,94,248,.4);transform:translateY(-4px);}
+  .assessment-card:hover::before{opacity:1;}
+
+  .card-top-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;}
+  .skill-icon{
+    width:48px;height:48px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;
+  }
+  .card-badges{display:flex;flex-direction:column;gap:.4rem;align-items:flex-end;}
+  .difficulty-badge{
+    padding:.25rem .65rem;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  }
+  .diff-beginner{background:rgba(56,217,169,.12);color:var(--accent3);}
+  .diff-intermediate{background:rgba(79,142,247,.12);color:var(--accent);}
+  .diff-advanced{background:rgba(247,136,79,.12);color:var(--accent4);}
+  .diff-expert{background:rgba(123,94,248,.12);color:var(--accent2);}
+
+  .card-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.4rem;}
+  .card-desc{font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:1.25rem;}
+
+  .card-meta-row{display:flex;gap:1rem;font-size:.78rem;color:var(--text3);margin-bottom:1.25rem;}
+  .card-meta-row span{display:flex;align-items:center;gap:.3rem;}
+
+  .cert-badge{
+    display:flex;align-items:center;gap:.5rem;
+    padding:.5rem .75rem;border-radius:8px;background:var(--bg3);border:1px solid var(--border);
+    font-size:.78rem;color:var(--text2);margin-bottom:1.25rem;
+  }
+  .cert-badge i{color:var(--accent4);}
+
+  .progress-section{margin-bottom:1.25rem;}
+  .progress-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text3);margin-bottom:.4rem;}
+  .progress-track{height:5px;background:var(--border);border-radius:3px;}
+  .progress-fill{height:100%;border-radius:3px;}
+
+  .start-btn{
+    width:100%;padding:.65rem;border-radius:10px;
+    background:linear-gradient(135deg,var(--accent2),var(--accent));
+    border:none;color:#fff;font-family:'DM Sans',sans-serif;
+    font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;
+    display:flex;align-items:center;justify-content:center;gap:.5rem;
+  }
+  .start-btn:hover{opacity:.85;}
+  .start-btn.completed{background:rgba(56,217,169,.12);border:1px solid rgba(56,217,169,.3);color:var(--accent3);}
+  .start-btn.completed:hover{opacity:.8;}
+
+  /* ACTIVE QUIZ PANEL */
+  .quiz-section{display:none;margin-bottom:4rem;}
+  .quiz-section.open{display:block;}
+  .quiz-container{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    overflow:hidden;max-width:780px;margin:0 auto;
+  }
+  .quiz-header{
+    padding:1.5rem 2rem;
+    background:linear-gradient(135deg,rgba(123,94,248,.15),rgba(79,142,247,.1));
+    border-bottom:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .quiz-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;}
+  .quiz-progress-info{font-size:.82rem;color:var(--text2);}
+  .quiz-progress-bar{height:3px;background:var(--border);}
+  .quiz-progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent3));transition:width .4s ease;}
+
+  .quiz-body{padding:2rem;}
+  .question-num{font-size:.75rem;color:var(--accent2);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:.75rem;}
+  .question-text{font-family:'Sora',sans-serif;font-weight:700;font-size:1.1rem;line-height:1.5;margin-bottom:1.75rem;}
+  .options{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem;}
+  .option{
+    padding:1rem 1.25rem;border-radius:10px;border:1px solid var(--border);
+    background:var(--bg3);cursor:pointer;transition:all .2s;
+    font-size:.9rem;display:flex;align-items:center;gap:.75rem;
+  }
+  .option:hover:not(.disabled){border-color:var(--accent2);background:rgba(123,94,248,.08);}
+  .option.selected{border-color:var(--accent2);background:rgba(123,94,248,.12);color:var(--text);}
+  .option.correct{border-color:var(--accent3);background:rgba(56,217,169,.1);color:var(--accent3);}
+  .option.wrong{border-color:#f87171;background:rgba(248,113,113,.08);color:#f87171;}
+  .option.disabled{cursor:default;}
+  .option-letter{
+    width:28px;height:28px;border-radius:6px;background:var(--border);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;
+    flex-shrink:0;transition:all .2s;
+  }
+  .option.selected .option-letter{background:var(--accent2);color:#fff;}
+  .option.correct .option-letter{background:var(--accent3);color:var(--bg);}
+  .option.wrong .option-letter{background:#f87171;color:#fff;}
+
+  .quiz-nav{display:flex;justify-content:space-between;align-items:center;}
+  .quiz-timer{
+    display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--text2);
+  }
+  .timer-display{
+    font-family:'Sora',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);
+  }
+  .timer-display.warning{color:var(--accent4);}
+  .next-btn{
+    padding:.6rem 1.5rem;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent2),var(--accent));
+    border:none;color:#fff;font-family:'DM Sans',sans-serif;
+    font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;
+  }
+  .next-btn:hover{opacity:.85;}
+  .next-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  /* RESULT PANEL */
+  .result-panel{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    padding:3rem;text-align:center;max-width:580px;margin:0 auto 4rem;
+    display:none;
+  }
+  .result-panel.show{display:block;animation:fadeUp .5s ease both;}
+  .result-score-ring{
+    width:120px;height:120px;border-radius:50%;margin:0 auto 1.5rem;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:4px solid transparent;
+    background:linear-gradient(var(--card),var(--card)) padding-box,
+               linear-gradient(135deg,var(--accent2),var(--accent3)) border-box;
+  }
+  .result-score{font-family:'Sora',sans-serif;font-size:2.2rem;font-weight:800;}
+  .result-score-label{font-size:.7rem;color:var(--text3);}
+  .result-title{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:.5rem;}
+  .result-desc{color:var(--text2);font-size:.9rem;line-height:1.7;margin-bottom:2rem;}
+  .result-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;}
+  .result-cert-badge{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.75rem 1.5rem;border-radius:10px;
+    background:rgba(247,136,79,.1);border:1px solid rgba(247,136,79,.25);
+    color:var(--accent4);font-weight:600;font-size:.875rem;margin-bottom:1.5rem;
+  }
+
+  /* MY SKILLS */
+  .my-skills-section{margin-bottom:4rem;}
+  .skills-radar-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+  .radar-panel,.skill-breakdown{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;}
+  .radar-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.25rem;}
+
+  /* Skill bars in breakdown */
+  .skill-bars{display:flex;flex-direction:column;gap:1.25rem;}
+  .skill-bar-row{display:flex;flex-direction:column;gap:.5rem;}
+  .skill-bar-meta{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;}
+  .skill-bar-name{font-weight:500;color:var(--text);display:flex;align-items:center;gap:.5rem;}
+  .skill-bar-score{font-family:'Sora',sans-serif;font-weight:700;color:var(--accent);}
+  .skill-bar-track{height:8px;background:var(--border);border-radius:4px;}
+  .skill-bar-fill{height:100%;border-radius:4px;transition:width 1.2s ease;}
+  .skill-bar-level{
+    display:inline-block;padding:.15rem .5rem;border-radius:4px;font-size:.65rem;font-weight:700;
+    letter-spacing:.5px;text-transform:uppercase;
+  }
+
+  /* CERTIFICATES EARNED */
+  .certs-section{margin-bottom:4rem;}
+  .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;}
+  .cert-card-full{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;
+    transition:all .25s;
+  }
+  .cert-card-full:hover{border-color:var(--accent4);transform:translateY(-3px);}
+  .cert-icon-big{
+    width:56px;height:56px;border-radius:14px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  }
+  .cert-info-full{}
+  .cert-name-full{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.25rem;}
+  .cert-sub{font-size:.8rem;color:var(--text2);margin-bottom:.75rem;}
+  .cert-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
+  .ctag{padding:.2rem .55rem;border-radius:5px;font-size:.7rem;font-weight:500;background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+  .cert-date{font-size:.75rem;color:var(--text3);display:flex;align-items:center;gap:.3rem;}
+
+  /* LEARNING PATH */
+  .path-section{margin-bottom:4rem;}
+  .path-layout{display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:start;}
+  .path-steps{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;}
+  .path-step{
+    display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;
+    border-bottom:1px solid var(--border);
+  }
+  .path-step:last-child{border-bottom:none;}
+  .step-indicator{
+    width:36px;height:36px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;font-family:'Sora',sans-serif;
+    position:relative;
+  }
+  .step-indicator.done{background:rgba(56,217,169,.15);color:var(--accent3);border:2px solid var(--accent3);}
+  .step-indicator.active{background:rgba(123,94,248,.15);color:var(--accent2);border:2px solid var(--accent2);}
+  .step-indicator.locked{background:var(--bg3);color:var(--text3);border:2px solid var(--border);}
+  .step-info{}
+  .step-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:.25rem;}
+  .step-desc{font-size:.8rem;color:var(--text2);line-height:1.6;margin-bottom:.5rem;}
+  .step-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+  .step-xp{
+    margin-left:auto;flex-shrink:0;
+    font-size:.75rem;font-weight:700;color:var(--accent4);
+    background:rgba(247,136,79,.1);padding:.25rem .6rem;border-radius:100px;white-space:nowrap;
+  }
+
+  .path-sidebar{display:flex;flex-direction:column;gap:1.25rem;}
+  .sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;}
+  .sidebar-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:1rem;}
+  .level-ring-container{text-align:center;margin-bottom:1rem;}
+  .level-circle{
+    width:80px;height:80px;border-radius:50%;margin:0 auto .75rem;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:3px solid var(--accent4);
+    background:rgba(247,136,79,.08);
+  }
+  .level-num{font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:800;color:var(--accent4);}
+  .level-tag{font-size:.65rem;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;}
+  .xp-bar{margin-bottom:.75rem;}
+  .xp-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text3);margin-bottom:.4rem;}
+  .xp-track{height:6px;background:var(--border);border-radius:3px;}
+  .xp-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent4),var(--accent2));width:68%;}
+  .xp-info{font-size:.78rem;color:var(--text2);text-align:center;}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:480px;width:100%;position:relative;animation:scaleIn .3s ease;}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;}
+  .modal h3{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:.4rem;}
+  .modal .sub{font-size:.85rem;color:var(--text2);margin-bottom:1.5rem;}
+  .modal-actions{display:flex;gap:.75rem;justify-content:flex-end;margin-top:1.5rem;}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:2rem;right:2rem;z-index:3000;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;transform:translateX(120%);transition:transform .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+  .toast.show{transform:translateX(0);}
+  .toast-icon{font-size:1.1rem;}
+  .toast-text{font-size:.875rem;font-weight:500;}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes scaleIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+  .reveal{opacity:0;transform:translateY(30px);transition:all .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .skills-radar-layout,.path-layout{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .path-sidebar{display:none;}
+  }
+  @media(max-width:600px){
+    nav{padding:0 4%;}
+    .main-content{padding:2rem 4% 4rem;}
+  }
+
+  /* ===== NAV UNIVERSAL ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;text-decoration:none;}
+  .nav-links{display:flex;gap:1.4rem;list-style:none;}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.84rem;font-weight:500;transition:color .2s;padding:.25rem 0;border-bottom:2px solid transparent;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent);}
+  .nav-cta{display:flex;gap:.75rem;align-items:center;}
+  .btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;display:inline-flex;align-items:center;}
+  .btn-primary:hover{opacity:.85;}
+  /* mobile nav */
+  @media(max-width:860px){.nav-links{display:none;}.nav-cta .btn-ghost{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">SkillBridge</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="lowongan.html">Lowongan</a></li>
+    <li><a href="skill-assessment.html" class="active">Assessment</a></li>
+    <li><a href="mentorship.html">Mentorship</a></li>
+    <li><a href="portfolio-builder.html">Portfolio</a></li>
+    <li><a href="gamification.html">Rewards</a></li>
+    <li><a href="chat.html">Chat</a></li>
+    <li><a href="profil.html">Profil</a></li>
+  </ul>
+    <div class="nav-cta">
+    <button class="btn-ghost" onclick="SBAuth.openLogin()">Masuk</button>
+    <button class="btn-primary" onclick="SBAuth.openRegister()">Daftar Gratis</button>
+  </div>
+
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Beranda</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Skill Assessment</span>
+    </div>
+    <div class="page-badge"><i class="fas fa-certificate"></i>&nbsp; Verified Skills</div>
+    <h1>Ukur & Validasi<br><span>Kemampuanmu</span></h1>
+    <p>Ikuti assessment berbasis AI untuk mengetahui level skill kamu, dapatkan sertifikat yang diakui perusahaan, dan temukan jalur karir yang paling tepat.</p>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">48</div>
+        <div class="stat-label">Jenis Test</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">230K+</div>
+        <div class="stat-label">Peserta</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">92%</div>
+        <div class="stat-label">Akurasi AI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+  <!-- QUIZ SECTION (hidden by default, shown when test started) -->
+  <div class="quiz-section" id="quizSection">
+    <div class="section-header reveal">
+      <div class="section-label">Assessment Aktif</div>
+      <h2 id="quizTitle">JavaScript Fundamentals</h2>
+    </div>
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <div>
+          <div class="quiz-title" id="quizHeaderTitle">JavaScript Fundamentals</div>
+          <div class="quiz-progress-info">Soal <span id="qCurrent">1</span> dari <span id="qTotal">10</span></div>
+        </div>
+        <div class="quiz-timer">
+          <i class="fas fa-clock"></i>
+          <span class="timer-display" id="timerDisplay">15:00</span>
+        </div>
+      </div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-bar-fill" id="quizProgressBar" style="width:10%"></div>
+      </div>
+      <div class="quiz-body">
+        <div class="question-num" id="questionNum">Pertanyaan 1</div>
+        <div class="question-text" id="questionText">Loading...</div>
+        <div class="options" id="optionsContainer"></div>
+        <div class="quiz-nav">
+          <div></div>
+          <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Selanjutnya <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="result-panel" id="resultPanel">
+    <div class="result-cert-badge" id="resultCertBadge"><i class="fas fa-award"></i> <span id="resultCertText">Sertifikat Tersedia!</span></div>
+    <div class="result-score-ring">
+      <div class="result-score" id="resultScore">0</div>
+      <div class="result-score-label">SKOR</div>
+    </div>
+    <div class="result-title" id="resultTitle">Assessment Selesai!</div>
+    <div class="result-desc" id="resultDesc">Loading...</div>
+    <div class="result-actions">
+      <button class="btn-ghost" onclick="closeResult()"><i class="fas fa-redo" style="margin-right:.4rem"></i>Ulangi</button>
+      <button class="btn-primary" onclick="downloadCert()"><i class="fas fa-download" style="margin-right:.4rem"></i>Unduh Sertifikat</button>
+    </div>
+  </div>
+
+  <!-- AVAILABLE ASSESSMENTS -->
+  <div class="reveal" style="margin-bottom:2rem">
+    <div class="section-label">Semua Assessment</div>
+    <h2>Pilih Kategori Skill</h2>
+    <p class="section-desc">Dari programming hingga soft skill — temukan assessment yang sesuai target karir kamu.</p>
+  </div>
+  <div class="tabs" id="categoryTabs">
+    <button class="tab active" onclick="filterAssessment(this,'semua')">Semua</button>
+    <button class="tab" onclick="filterAssessment(this,'tech')">Tech</button>
+    <button class="tab" onclick="filterAssessment(this,'design')">Design</button>
+    <button class="tab" onclick="filterAssessment(this,'business')">Business</button>
+    <button class="tab" onclick="filterAssessment(this,'softskill')">Soft Skill</button>
+    <button class="tab" onclick="filterAssessment(this,'data')">Data</button>
+  </div>
+  <div class="assessment-grid" id="assessmentGrid"></div>
+
+  <!-- MY SKILLS BREAKDOWN -->
+  <div class="my-skills-section">
+    <div class="section-header reveal">
+      <div class="section-label">Profil Skill Saya</div>
+      <h2>Hasil Assessment Kamu</h2>
+      <p class="section-desc">Ringkasan kemampuan berdasarkan semua assessment yang telah diselesaikan.</p>
+    </div>
+    <div class="skills-radar-layout">
+      <div class="skill-breakdown reveal">
+        <div class="radar-title"><i class="fas fa-chart-bar" style="color:var(--accent2);margin-right:.5rem"></i>Skill Breakdown</div>
+        <div class="skill-bars" id="skillBarsContainer"></div>
+      </div>
+      <div class="radar-panel reveal">
+        <div class="radar-title"><i class="fas fa-star" style="color:var(--accent4);margin-right:.5rem"></i>Top Skills</div>
+        <canvas id="radarChart" width="300" height="300" style="max-width:100%"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATES EARNED -->
+  <div class="certs-section">
+    <div class="section-header reveal">
+      <div class="section-label">Pencapaian</div>
+      <h2>Sertifikat Diraih</h2>
+      <p class="section-desc">Sertifikat yang diakui oleh 850+ perusahaan mitra SkillBridge.</p>
+    </div>
+    <div class="certs-grid" id="certsGrid"></div>
+  </div>
+
+  <!-- LEARNING PATH -->
+  <div class="path-section">
+    <div class="section-header reveal">
+      <div class="section-label">Rekomendasi AI</div>
+      <h2>Learning Path Untukmu</h2>
+      <p class="section-desc">Berdasarkan hasil assessment, AI SkillBridge merekomendasikan jalur belajar berikut.</p>
+    </div>
+    <div class="path-layout">
+      <div class="path-steps reveal" id="pathSteps"></div>
+      <div class="path-sidebar">
+        <div class="sidebar-card reveal">
+          <div class="sidebar-title"><i class="fas fa-trophy" style="color:var(--accent4);margin-right:.5rem"></i>Level Kamu</div>
+          <div class="level-ring-container">
+            <div class="level-circle">
+              <div class="level-num">7</div>
+              <div class="level-tag">Level</div>
+            </div>
+            <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem">Rising Star</div>
+            <div style="font-size:.78rem;color:var(--text2);margin-top:.25rem">Kamu di top 23% pengguna</div>
+          </div>
+          <div class="xp-bar">
+            <div class="xp-label"><span>XP Progress</span><span>1,240 / 1,800 XP</span></div>
+            <div class="xp-track"><div class="xp-fill"></div></div>
+          </div>
+          <div class="xp-info">560 XP lagi untuk Level 8: <strong>Pro Talent</strong></div>
+        </div>
+        <div class="sidebar-card reveal">
+          <div class="sidebar-title"><i class="fas fa-fire" style="color:var(--accent4);margin-right:.5rem"></i>Streak Belajar</div>
+          <div style="text-align:center;padding:1rem 0;">
+            <div style="font-family:'Sora',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent4)">12 🔥</div>
+            <div style="font-size:.85rem;color:var(--text2);margin-top:.25rem">Hari berturut-turut</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;margin-top:.5rem" id="streakGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main-content -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <span class="toast-text" id="toastText">Berhasil!</span>
+</div>
+
+<script>
+// ===== DATA =====
+const assessments = [
+  {id:'js',title:'JavaScript Fundamentals',desc:'Uji pemahaman tentang variabel, fungsi, closure, dan async JS.',icon:'⚡',iconBg:'rgba(247,196,79,.12)',iconColor:'#f7c44f',category:'tech',difficulty:'Intermediate',time:15,questions:10,participants:18200,cert:true,progress:0,completed:false},
+  {id:'react',title:'React & Hooks',desc:'Component lifecycle, useState, useEffect, context API, dan state management.',icon:'⚛️',iconBg:'rgba(79,195,247,.12)',iconColor:'#4fc3f7',category:'tech',difficulty:'Advanced',time:20,questions:15,participants:9400,cert:true,progress:0,completed:false},
+  {id:'figma',title:'Figma & UI Design',desc:'Wireframing, prototyping, auto layout, dan design system di Figma.',icon:'🎨',iconBg:'rgba(123,94,248,.12)',iconColor:'#7b5ef8',category:'design',difficulty:'Beginner',time:10,questions:10,participants:12600,cert:true,progress:0,completed:false},
+  {id:'sql',title:'SQL & Database',desc:'Query dasar hingga JOIN, subquery, indexing, dan optimasi database.',icon:'🗄️',iconBg:'rgba(56,217,169,.12)',iconColor:'#38d9a9',category:'data',difficulty:'Intermediate',time:15,questions:12,participants:14500,cert:true,progress:0,completed:false},
+  {id:'pm',title:'Product Management',desc:'Roadmap, prioritization framework, user story, OKR, dan Agile/Scrum.',icon:'📋',iconBg:'rgba(247,136,79,.12)',iconColor:'#f7884f',category:'business',difficulty:'Intermediate',time:15,questions:12,participants:7800,cert:true,progress:0,completed:false},
+  {id:'comm',title:'Komunikasi Profesional',desc:'Presentasi, negosiasi, public speaking, dan komunikasi lintas budaya.',icon:'🗣️',iconBg:'rgba(79,142,247,.12)',iconColor:'#4f8ef7',category:'softskill',difficulty:'Beginner',time:10,questions:10,participants:22000,cert:false,progress:72,completed:false},
+  {id:'python',title:'Python for Data',desc:'Pandas, NumPy, visualisasi data, dan statistik dasar menggunakan Python.',icon:'🐍',iconBg:'rgba(56,217,169,.12)',iconColor:'#38d9a9',category:'data',difficulty:'Advanced',time:25,questions:15,participants:11200,cert:true,progress:0,completed:false},
+  {id:'ux',title:'UX Research',desc:'User interview, usability testing, affinity mapping, dan insight synthesis.',icon:'🔍',iconBg:'rgba(123,94,248,.12)',iconColor:'#7b5ef8',category:'design',difficulty:'Intermediate',time:15,questions:10,participants:6300,cert:true,progress:0,completed:false},
+  {id:'mkt',title:'Digital Marketing',desc:'SEO, SEM, social media strategy, analytics, dan content marketing.',icon:'📈',iconBg:'rgba(247,136,79,.12)',iconColor:'#f7884f',category:'business',difficulty:'Beginner',time:10,questions:10,participants:19700,cert:false,progress:100,completed:true},
+  {id:'lead',title:'Leadership & Team',desc:'Team dynamics, conflict resolution, decision making, dan servant leadership.',icon:'🌟',iconBg:'rgba(79,142,247,.12)',iconColor:'#4f8ef7',category:'softskill',difficulty:'Expert',time:20,questions:15,participants:5100,cert:true,progress:0,completed:false},
+  {id:'node',title:'Node.js & API',desc:'REST API, Express.js, middleware, authentication, dan deployment.',icon:'🖥️',iconBg:'rgba(247,196,79,.12)',iconColor:'#f7c44f',category:'tech',difficulty:'Advanced',time:20,questions:12,participants:8900,cert:true,progress:0,completed:false},
+  {id:'excel',title:'Excel & Data Analysis',desc:'Pivot table, VLOOKUP, conditional formatting, macro dasar, dan dashboard.',icon:'📊',iconBg:'rgba(56,217,169,.12)',iconColor:'#38d9a9',category:'data',difficulty:'Beginner',time:10,questions:10,participants:31000,cert:false,progress:0,completed:false},
+];
+
+const quizBank = {
+  js:[
+    {q:'Apa output dari: console.log(typeof null)?',opts:['null','object','undefined','string'],ans:1},
+    {q:'Manakah cara yang benar untuk mendeklarasikan arrow function?',opts:['function arrow() {}','const arrow = () => {}','arrow() => {}','def arrow(): {}'],ans:1},
+    {q:'Apa yang dimaksud dengan "closure" dalam JavaScript?',opts:['Sebuah loop yang tertutup','Fungsi yang mengakses variabel dari scope luarnya','Method bawaan array','Cara menutup koneksi server'],ans:1},
+    {q:'Manakah method array yang TIDAK mengubah array aslinya?',opts:['push()','pop()','map()','splice()'],ans:2},
+    {q:'Apa perbedaan === dan == di JavaScript?',opts:['Tidak ada perbedaan','=== mengecek tipe data juga','== lebih cepat','=== hanya untuk angka'],ans:1},
+    {q:'Promise.all() akan reject jika:',opts:['Semua promise reject','Salah satu promise reject','Lebih dari 50% reject','Tidak pernah reject'],ans:1},
+    {q:'Apa fungsi dari keyword "async" pada fungsi?',opts:['Membuat fungsi berjalan lebih cepat','Membuat fungsi selalu return Promise','Menghentikan eksekusi fungsi','Membuat fungsi berjalan parallel'],ans:1},
+    {q:'Manakah yang bukan merupakan falsy value di JavaScript?',opts:['0','""','[]','null'],ans:2},
+    {q:'Apa output: console.log(1 + "2" + 3)?',opts:['"123"','6','"15"','Error'],ans:0},
+    {q:'Event bubbling terjadi ketika:',opts:['Event dikirim ke parent elements','Event dikirim ke child elements','Event terjadi dua kali','Event dibatalkan'],ans:0},
+  ]
+};
+
+const mySkills = [
+  {name:'JavaScript',score:82,level:'Advanced',color:'#f7c44f',gradient:'linear-gradient(90deg,#f7c44f,#f7884f)'},
+  {name:'Figma & UI Design',score:91,level:'Expert',color:'#7b5ef8',gradient:'linear-gradient(90deg,#7b5ef8,#4f8ef7)'},
+  {name:'Digital Marketing',score:78,level:'Intermediate',color:'#38d9a9',gradient:'linear-gradient(90deg,#38d9a9,#4f8ef7)'},
+  {name:'Komunikasi',score:66,level:'Intermediate',color:'#4f8ef7',gradient:'linear-gradient(90deg,#4f8ef7,#7b5ef8)'},
+  {name:'SQL',score:55,level:'Beginner',color:'#38d9a9',gradient:'linear-gradient(90deg,#38d9a9,#4f8ef7)'},
+];
+
+const certs = [
+  {name:'Digital Marketing Certified',org:'SkillBridge x Google',date:'Maret 2025',icon:'📈',iconBg:'rgba(247,136,79,.12)',iconColor:'#f7884f',tags:['SEO','SEM','Analytics','Content'],score:78},
+  {name:'UI/UX Design Professional',org:'SkillBridge x Tokopedia',date:'Januari 2025',icon:'🎨',iconBg:'rgba(123,94,248,.12)',iconColor:'#7b5ef8',tags:['Figma','Prototyping','Research'],score:91},
+];
+
+const pathSteps = [
+  {num:1,title:'JavaScript Fundamentals ✅',desc:'Selesai! Kamu sudah menguasai dasar-dasar JavaScript dengan baik.',tags:['Variables','Functions','Async'],xp:'+200 XP',status:'done'},
+  {num:2,title:'React & Hooks',desc:'Langkah selanjutnya — pelajari ekosistem React untuk membangun UI modern.',tags:['Components','Hooks','State'],xp:'+300 XP',status:'active'},
+  {num:3,title:'Node.js & REST API',desc:'Bangun backend yang kuat dengan Node.js, Express, dan database integration.',tags:['Express','REST','Auth'],xp:'+350 XP',status:'locked'},
+  {num:4,title:'Full-Stack Project',desc:'Gabungkan semua skill untuk membangun aplikasi full-stack yang siap portfolio.',tags:['Deployment','CI/CD','Portfolio'],xp:'+500 XP',status:'locked'},
+];
+
+// ===== STATE =====
+let currentQuiz = null;
+let currentQ = 0;
+let score = 0;
+let selectedOpt = null;
+let answered = false;
+let timerInterval = null;
+let timeLeft = 900;
+
+// ===== RENDER ASSESSMENTS =====
+function renderAssessments(filter='semua'){
+  const grid = document.getElementById('assessmentGrid');
+  const filtered = filter==='semua' ? assessments : assessments.filter(a=>a.category===filter);
+  grid.innerHTML = filtered.map(a=>{
+    const diffClass = {Beginner:'diff-beginner',Intermediate:'diff-intermediate',Advanced:'diff-advanced',Expert:'diff-expert'}[a.difficulty];
+    const progressBar = a.progress>0 ? `<div class="progress-section"><div class="progress-label"><span>Progress</span><span>${a.progress}%</span></div><div class="progress-track"><div class="progress-fill" style="width:${a.progress}%;background:linear-gradient(90deg,var(--accent2),var(--accent3))"></div></div></div>` : '';
+    const btnLabel = a.completed ? '<i class="fas fa-check-circle" style="margin-right:.4rem"></i>Selesai – Ulang Test' : a.progress>0 ? '<i class="fas fa-play" style="margin-right:.4rem"></i>Lanjutkan' : '<i class="fas fa-play" style="margin-right:.4rem"></i>Mulai Assessment';
+    const btnClass = a.completed ? 'start-btn completed' : 'start-btn';
+    return `
+    <div class="assessment-card reveal">
+      <div class="card-top-row">
+        <div class="skill-icon" style="background:${a.iconBg};color:${a.iconColor};font-size:1.5rem">${a.icon}</div>
+        <div class="card-badges">
+          <span class="difficulty-badge ${diffClass}">${a.difficulty}</span>
+        </div>
+      </div>
+      <div class="card-title">${a.title}</div>
+      <div class="card-desc">${a.desc}</div>
+      <div class="card-meta-row">
+        <span><i class="fas fa-clock"></i>${a.time} menit</span>
+        <span><i class="fas fa-list"></i>${a.questions} soal</span>
+        <span><i class="fas fa-users"></i>${(a.participants/1000).toFixed(1)}K</span>
+      </div>
+      ${a.cert?`<div class="cert-badge"><i class="fas fa-award"></i> Dapat Sertifikat</div>`:''}
+      ${progressBar}
+      <button class="${btnClass}" onclick="startAssessment('${a.id}','${a.title}')">${btnLabel}</button>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+}
+
+// ===== FILTER =====
+function filterAssessment(btn,cat){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAssessments(cat);
+}
+
+// ===== START ASSESSMENT =====
+function startAssessment(id,title){
+  const q = quizBank[id] || quizBank['js'];
+  currentQuiz = {id,title,questions:q};
+  currentQ = 0; score = 0; selectedOpt = null; answered = false;
+  timeLeft = 900;
+
+  document.getElementById('quizTitle').textContent = title;
+  document.getElementById('quizHeaderTitle').textContent = title;
+  document.getElementById('qTotal').textContent = q.length;
+
+  document.getElementById('quizSection').classList.add('open');
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('quizSection').scrollIntoView({behavior:'smooth'});
+
+  renderQuestion();
+  startTimer();
+}
+
+// ===== RENDER QUESTION =====
+function renderQuestion(){
+  const q = currentQuiz.questions[currentQ];
+  const total = currentQuiz.questions.length;
+  document.getElementById('questionNum').textContent = `Pertanyaan ${currentQ+1}`;
+  document.getElementById('questionText').textContent = q.q;
+  document.getElementById('qCurrent').textContent = currentQ+1;
+  document.getElementById('quizProgressBar').style.width = `${((currentQ+1)/total)*100}%`;
+
+  const letters = ['A','B','C','D'];
+  document.getElementById('optionsContainer').innerHTML = q.opts.map((opt,i)=>`
+    <div class="option" id="opt${i}" onclick="selectOption(${i})">
+      <div class="option-letter">${letters[i]}</div>
+      ${opt}
+    </div>
+  `).join('');
+
+  answered = false; selectedOpt = null;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('nextBtn').textContent = currentQ===currentQuiz.questions.length-1 ? 'Selesai ' : 'Selanjutnya ';
+  document.getElementById('nextBtn').innerHTML = currentQ===currentQuiz.questions.length-1 ? 'Selesai <i class="fas fa-flag"></i>' : 'Selanjutnya <i class="fas fa-arrow-right"></i>';
+}
+
+// ===== SELECT OPTION =====
+function selectOption(idx){
+  if(answered) return;
+  const q = currentQuiz.questions[currentQ];
+  answered = true;
+  selectedOpt = idx;
+
+  document.querySelectorAll('.option').forEach(o=>o.classList.add('disabled'));
+  document.getElementById(`opt${idx}`).classList.add(idx===q.ans?'correct':'wrong');
+  if(idx!==q.ans) document.getElementById(`opt${q.ans}`).classList.add('correct');
+  if(idx===q.ans) score++;
+
+  document.getElementById('nextBtn').disabled = false;
+}
+
+// ===== NEXT QUESTION =====
+function nextQuestion(){
+  currentQ++;
+  if(currentQ >= currentQuiz.questions.length){
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+// ===== TIMER =====
+function startTimer(){
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+    const s = (timeLeft%60).toString().padStart(2,'0');
+    const el = document.getElementById('timerDisplay');
+    el.textContent = `${m}:${s}`;
+    el.className = 'timer-display' + (timeLeft<=60?' warning':'');
+    if(timeLeft<=0){clearInterval(timerInterval);showResult();}
+  },1000);
+}
+
+// ===== SHOW RESULT =====
+function showResult(){
+  clearInterval(timerInterval);
+  const total = currentQuiz.questions.length;
+  const pct = Math.round((score/total)*100);
+  const passed = pct >= 70;
+
+  document.getElementById('resultScore').textContent = pct;
+  document.getElementById('resultTitle').textContent = passed ? '🎉 Luar Biasa! Kamu Lulus!' : '📚 Hampir! Coba Lagi';
+  document.getElementById('resultDesc').textContent = passed
+    ? `Kamu menjawab ${score} dari ${total} soal dengan benar (${pct}%). Sertifikat ${currentQuiz.title} kini bisa kamu unduh dan tampilkan di profil.`
+    : `Kamu menjawab ${score} dari ${total} soal dengan benar (${pct}%). Minimal 70% untuk lulus. Pelajari materi yang kurang dan coba lagi!`;
+  document.getElementById('resultCertBadge').innerHTML = passed ? '<i class="fas fa-award"></i> Sertifikat Berhasil Diraih!' : '<i class="fas fa-info-circle"></i> Minimal 70% untuk mendapat sertifikat';
+  document.getElementById('resultCertBadge').style.background = passed ? 'rgba(247,136,79,.1)' : 'rgba(90,98,133,.1)';
+  document.getElementById('resultCertBadge').style.borderColor = passed ? 'rgba(247,136,79,.25)' : 'rgba(90,98,133,.25)';
+  document.getElementById('resultCertBadge').style.color = passed ? 'var(--accent4)' : 'var(--text3)';
+
+  document.getElementById('quizSection').classList.remove('open');
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('resultPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function closeResult(){
+  document.getElementById('resultPanel').classList.remove('show');
+}
+function downloadCert(){showToast('📜 Sertifikat sedang diproses dan akan dikirim ke email kamu!');}
+
+// ===== RENDER SKILL BARS =====
+function renderSkillBars(){
+  const container = document.getElementById('skillBarsContainer');
+  const levelColors={Expert:'var(--accent2)',Advanced:'var(--accent)',Intermediate:'var(--accent3)',Beginner:'var(--text3)'};
+  container.innerHTML = mySkills.map(s=>`
+    <div class="skill-bar-row">
+      <div class="skill-bar-meta">
+        <div class="skill-bar-name">
+          <span class="skill-bar-level" style="background:rgba(79,142,247,.1);color:${levelColors[s.level]}">${s.level}</span>
+          ${s.name}
+        </div>
+        <div class="skill-bar-score">${s.score}%</div>
+      </div>
+      <div class="skill-bar-track">
+        <div class="skill-bar-fill" style="width:0%;background:${s.gradient}" data-width="${s.score}%"></div>
+      </div>
+    </div>
+  `).join('');
+  setTimeout(()=>{
+    document.querySelectorAll('.skill-bar-fill').forEach(el=>{el.style.width=el.dataset.width;});
+  },400);
+}
+
+// ===== RENDER CERTS =====
+function renderCerts(){
+  document.getElementById('certsGrid').innerHTML = certs.map(c=>`
+    <div class="cert-card-full reveal">
+      <div class="cert-icon-big" style="background:${c.iconBg};color:${c.iconColor}">${c.icon}</div>
+      <div class="cert-info-full">
+        <div class="cert-name-full">${c.name}</div>
+        <div class="cert-sub">${c.org} · Skor: ${c.score}%</div>
+        <div class="cert-tags">${c.tags.map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
+        <div class="cert-date"><i class="fas fa-calendar-alt"></i> Diraih ${c.date}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER PATH =====
+function renderPath(){
+  document.getElementById('pathSteps').innerHTML = `<div class="radar-title" style="margin-bottom:0"><i class="fas fa-route" style="color:var(--accent2);margin-right:.5rem"></i>Frontend Developer Path</div>` +
+  pathSteps.map(s=>`
+    <div class="path-step">
+      <div class="step-indicator ${s.status}">${s.status==='done'?'✓':s.status==='active'?s.num:'🔒'}</div>
+      <div class="step-info">
+        <div class="step-title">${s.title}</div>
+        <div class="step-desc">${s.desc}</div>
+        <div class="step-tags">${s.tags.map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="step-xp">${s.xp}</div>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER STREAK =====
+function renderStreak(){
+  const days=['S','S','R','K','J','S','M'];
+  const done=[true,true,true,true,true,true,false];
+  document.getElementById('streakGrid').innerHTML = days.map((d,i)=>`
+    <div style="text-align:center">
+      <div style="font-size:.6rem;color:var(--text3);margin-bottom:.3rem">${d}</div>
+      <div style="width:100%;aspect-ratio:1;border-radius:4px;background:${done[i]?'rgba(247,136,79,.2)':'var(--bg3)'};border:1px solid ${done[i]?'rgba(247,136,79,.3)':'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:.7rem">${done[i]?'🔥':''}</div>
+    </div>
+  `).join('');
+}
+
+// ===== RADAR CHART (Canvas) =====
+function drawRadar(){
+  const canvas = document.getElementById('radarChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2, R = Math.min(W,H)*0.38;
+  const labels = ['JavaScript','Figma','Marketing','Komunikasi','SQL'];
+  const values = [0.82,0.91,0.78,0.66,0.55];
+  const n = labels.length;
+  ctx.clearRect(0,0,W,H);
+
+  // Background rings
+  [0.25,0.5,0.75,1].forEach(scale=>{
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const angle = (i*2*Math.PI/n) - Math.PI/2;
+      const x = cx + R*scale*Math.cos(angle);
+      const y = cy + R*scale*Math.sin(angle);
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(37,45,71,0.8)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // Axes
+  for(let i=0;i<n;i++){
+    const angle = (i*2*Math.PI/n) - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+R*Math.cos(angle), cy+R*Math.sin(angle));
+    ctx.strokeStyle = 'rgba(37,45,71,0.6)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Data polygon
+  ctx.beginPath();
+  for(let i=0;i<n;i++){
+    const angle = (i*2*Math.PI/n) - Math.PI/2;
+    const x = cx + R*values[i]*Math.cos(angle);
+    const y = cy + R*values[i]*Math.sin(angle);
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'rgba(123,94,248,0.3)');
+  grad.addColorStop(1,'rgba(56,217,169,0.2)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.strokeStyle = '#7b5ef8';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Points
+  for(let i=0;i<n;i++){
+    const angle = (i*2*Math.PI/n) - Math.PI/2;
+    const x = cx + R*values[i]*Math.cos(angle);
+    const y = cy + R*values[i]*Math.sin(angle);
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle = '#7b5ef8';
+    ctx.fill();
+  }
+
+  // Labels
+  ctx.font = '500 11px DM Sans';
+  ctx.textAlign = 'center';
+  for(let i=0;i<n;i++){
+    const angle = (i*2*Math.PI/n) - Math.PI/2;
+    const x = cx + (R+28)*Math.cos(angle);
+    const y = cy + (R+28)*Math.sin(angle) + 4;
+    ctx.fillStyle = '#8a96b8';
+    ctx.fillText(labels[i], x, y);
+  }
+}
+
+// ===== TOAST =====
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastText').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ===== INIT =====
+renderAssessments();
+renderSkillBars();
+renderCerts();
+renderPath();
+renderStreak();
+drawRadar();
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

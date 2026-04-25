@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Saya – SkillBridge</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --bg:#0a0d14;--bg2:#111520;--bg3:#161b28;--card:#1a2035;--card2:#1e2640;
+  --accent:#4f8ef7;--accent2:#7b5ef8;--accent3:#38d9a9;--accent4:#f7884f;
+  --gold:#f5c842;--text:#e8edf8;--text2:#8a96b8;--text3:#5a6285;--border:#252d47;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;text-decoration:none;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s;padding:.25rem 0;border-bottom:2px solid transparent;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent);}
+.nav-cta{display:flex;gap:.75rem;align-items:center;}
+.btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-primary:hover{opacity:.85;}
+
+/* ── HERO BANNER ── */
+.profile-hero{margin-top:68px;position:relative;background:var(--bg2);overflow:hidden;}
+.hero-bg{position:absolute;inset:0;overflow:hidden;}
+.hero-bg-gradient{position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,142,247,.08) 0%,rgba(123,94,248,.06) 50%,rgba(56,217,169,.04) 100%);}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(79,142,247,.12),transparent 70%);top:-150px;left:-100px;}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(123,94,248,.1),transparent 70%);top:-100px;right:-80px;}
+.hero-cover{height:180px;background:linear-gradient(135deg,var(--card),var(--card2));position:relative;cursor:pointer;overflow:hidden;}
+.hero-cover-img{width:100%;height:100%;object-fit:cover;opacity:.4;}
+.hero-cover-edit{position:absolute;top:.75rem;right:.75rem;padding:.45rem .9rem;border-radius:8px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);color:var(--text2);font-size:.78rem;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .2s;}
+.hero-cover-edit:hover{background:rgba(0,0,0,.7);color:var(--text);}
+.hero-cover-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a2035,#161b28,#1a2035);}
+.hero-cover-pattern{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%, rgba(79,142,247,.15) 0%,transparent 50%), radial-gradient(circle at 80% 20%, rgba(123,94,248,.12) 0%,transparent 45%);}
+
+.hero-bottom{padding:0 5% 2rem;position:relative;}
+.hero-avatar-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:-52px;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;}
+.avatar-wrapper{position:relative;flex-shrink:0;}
+.avatar-ring-big{width:104px;height:104px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));padding:3px;box-shadow:0 0 0 4px var(--bg2);}
+.avatar-inner-big{width:100%;height:100%;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:800;font-family:'Sora',sans-serif;color:var(--text);cursor:pointer;}
+.avatar-edit-btn{position:absolute;bottom:2px;right:2px;width:28px;height:28px;border-radius:50%;background:var(--accent);border:2px solid var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.7rem;color:#fff;transition:opacity .2s;}
+.avatar-edit-btn:hover{opacity:.85;}
+.online-dot{position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:var(--accent3);border:3px solid var(--bg2);}
+.hero-actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;}
+.profile-strength-pill{display:flex;align-items:center;gap:.5rem;padding:.4rem .85rem;border-radius:100px;background:rgba(56,217,169,.08);border:1px solid rgba(56,217,169,.18);font-size:.78rem;}
+.ps-label{color:var(--text3);}
+.ps-val{color:var(--accent3);font-weight:700;}
+
+.hero-info{}
+.hero-name{font-family:'Sora',sans-serif;font-weight:900;font-size:1.8rem;letter-spacing:-.8px;margin-bottom:.2rem;}
+.hero-title{font-size:.95rem;color:var(--text2);margin-bottom:.6rem;}
+.hero-meta{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.hero-meta span{display:flex;align-items:center;gap:.35rem;font-size:.83rem;color:var(--text3);}
+.hero-meta i{font-size:.75rem;color:var(--accent);width:12px;}
+.hero-tags{display:flex;gap:.45rem;flex-wrap:wrap;}
+.htag{padding:.28rem .7rem;border-radius:100px;font-size:.75rem;font-weight:600;background:rgba(79,142,247,.1);color:var(--accent);border:1px solid rgba(79,142,247,.2);}
+.htag.green{background:rgba(56,217,169,.1);color:var(--accent3);border-color:rgba(56,217,169,.2);}
+.htag.purple{background:rgba(123,94,248,.1);color:var(--accent2);border-color:rgba(123,94,248,.2);}
+.htag.gold{background:rgba(245,200,66,.1);color:var(--gold);border-color:rgba(245,200,66,.2);}
+
+/* ── LEVEL BAR (below hero) ── */
+.level-strip{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.9rem 5%;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+.ls-item{display:flex;align-items:center;gap:.6rem;}
+.ls-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+.ls-val{font-family:'Sora',sans-serif;font-weight:800;font-size:1.05rem;}
+.ls-label{font-size:.72rem;color:var(--text3);margin-top:.05rem;}
+.ls-divider{width:1px;height:28px;background:var(--border);}
+.xp-bar-strip{flex:1;min-width:200px;}
+.xb-meta{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text2);margin-bottom:.35rem;}
+.xb-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+.xb-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--accent4));width:72%;position:relative;}
+.xb-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:shimmer 2.2s infinite;}
+@keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+
+/* ── MAIN LAYOUT ── */
+.profile-body{display:grid;grid-template-columns:1fr 360px;gap:2rem;padding:2rem 5%;max-width:1400px;margin:0 auto;}
+
+/* ── TABS ── */
+.profile-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.75rem;overflow-x:auto;}
+.ptab{padding:.85rem 1.25rem;border:none;background:transparent;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.4rem;}
+.ptab:hover{color:var(--text2);}
+.ptab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.ptab .badge{background:var(--accent4);color:#fff;font-size:.62rem;padding:.1rem .35rem;border-radius:100px;}
+.tab-panel{display:none;animation:fadeUp .3s ease;}
+.tab-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.25rem;position:relative;}
+.card:hover{border-color:rgba(79,142,247,.2);}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;}
+.card-title{font-family:'Sora',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;gap:.5rem;}
+.card-title i{color:var(--accent);font-size:.85rem;}
+.edit-btn{padding:.35rem .8rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.78rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem;}
+.edit-btn:hover{border-color:var(--accent);color:var(--accent);}
+.add-btn{padding:.35rem .8rem;border-radius:8px;border:1px dashed var(--border);background:transparent;color:var(--text3);font-size:.78rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem;}
+.add-btn:hover{border-color:var(--accent);color:var(--accent);border-style:solid;}
+
+/* ── ABOUT ── */
+.about-text{font-size:.9rem;color:var(--text2);line-height:1.8;}
+.about-text strong{color:var(--text);}
+
+/* ── EXPERIENCE / EDU ── */
+.timeline{display:flex;flex-direction:column;gap:1.25rem;}
+.tl-item{display:grid;grid-template-columns:44px 1fr;gap:.9rem;}
+.tl-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--bg3);border:1px solid var(--border);}
+.tl-body{}
+.tl-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:.15rem;}
+.tl-sub{font-size:.82rem;color:var(--accent);margin-bottom:.2rem;}
+.tl-period{font-size:.75rem;color:var(--text3);margin-bottom:.5rem;display:flex;align-items:center;gap:.35rem;}
+.tl-period i{font-size:.65rem;}
+.tl-desc{font-size:.82rem;color:var(--text2);line-height:1.65;}
+.tl-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;}
+.tl-tag{padding:.2rem .55rem;border-radius:6px;font-size:.7rem;background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.skill-cat{}
+.skill-cat-label{font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.65rem;}
+.skill-bars{display:flex;flex-direction:column;gap:.65rem;}
+.skill-bar-item{}
+.sb-row{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem;}
+.sb-name{color:var(--text);}
+.sb-pct{color:var(--text3);font-weight:600;}
+.sb-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.sb-fill{height:100%;border-radius:3px;transition:width 1.2s ease;}
+.cert-list{display:flex;flex-direction:column;gap:.75rem;}
+.cert-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 1rem;border-radius:12px;background:var(--bg3);border:1px solid var(--border);transition:border-color .2s;}
+.cert-item:hover{border-color:rgba(79,142,247,.25);}
+.cert-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.cert-info{flex:1;}
+.cert-name{font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;}
+.cert-issuer{font-size:.75rem;color:var(--text3);margin-top:.1rem;}
+.cert-badge{padding:.2rem .55rem;border-radius:6px;font-size:.7rem;font-weight:600;background:rgba(56,217,169,.1);color:var(--accent3);border:1px solid rgba(56,217,169,.2);}
+
+/* ── PORTFOLIO ── */
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+.port-card{border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--bg3);transition:all .3s;cursor:pointer;}
+.port-card:hover{transform:translateY(-4px);border-color:rgba(79,142,247,.3);box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.port-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;}
+.port-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.port-card:hover .port-overlay{opacity:1;}
+.port-overlay-icon{color:#fff;font-size:1.25rem;}
+.port-info{padding:.85rem;}
+.port-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:.2rem;}
+.port-desc{font-size:.75rem;color:var(--text2);line-height:1.5;margin-bottom:.6rem;}
+.port-tags{display:flex;gap:.3rem;flex-wrap:wrap;}
+.port-tag{padding:.15rem .45rem;border-radius:5px;font-size:.68rem;background:var(--card);color:var(--text2);border:1px solid var(--border);}
+.port-links{display:flex;gap:.4rem;margin-top:.5rem;}
+.port-link{padding:.25rem .55rem;border-radius:6px;font-size:.7rem;border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.25rem;}
+.port-link:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── STATUS LAMARAN ── */
+.lamaran-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem;}
+.lf-btn{padding:.4rem .9rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.lf-btn.active,.lf-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.lamaran-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem;}
+.lst-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:.9rem;text-align:center;}
+.lst-num{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;}
+.lst-label{font-size:.72rem;color:var(--text3);margin-top:.1rem;}
+.lamaran-list{display:flex;flex-direction:column;gap:.9rem;}
+.lamaran-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.25rem;transition:all .25s;cursor:pointer;}
+.lamaran-card:hover{border-color:rgba(79,142,247,.25);transform:translateX(3px);}
+.lc-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;}
+.lc-logo{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;font-family:'Sora',sans-serif;flex-shrink:0;}
+.lc-info{flex:1;}
+.lc-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:.2rem;}
+.lc-company{font-size:.82rem;color:var(--text2);display:flex;align-items:center;gap:.4rem;}
+.lc-right{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
+.lc-date{font-size:.72rem;color:var(--text3);}
+.status-badge{padding:.3rem .75rem;border-radius:100px;font-size:.72rem;font-weight:700;white-space:nowrap;}
+.s-review{background:rgba(79,142,247,.12);color:var(--accent);border:1px solid rgba(79,142,247,.2);}
+.s-interview{background:rgba(56,217,169,.12);color:var(--accent3);border:1px solid rgba(56,217,169,.2);}
+.s-test{background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.2);}
+.s-rejected{background:rgba(248,94,94,.1);color:#f85e5e;border:1px solid rgba(248,94,94,.2);}
+.s-offered{background:rgba(56,217,169,.15);color:var(--accent3);border:1px solid rgba(56,217,169,.3);}
+.s-pending{background:rgba(90,98,133,.15);color:var(--text3);border:1px solid var(--border);}
+/* PROGRESS TRACKER */
+.progress-tracker{display:flex;align-items:center;gap:0;margin-bottom:.8rem;}
+.pt-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
+.pt-step:not(:last-child)::after{content:'';position:absolute;top:10px;left:50%;width:100%;height:2px;z-index:0;}
+.pt-step:not(:last-child).done::after{background:var(--accent3);}
+.pt-step:not(:last-child):not(.done)::after{background:var(--border);}
+.pt-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.55rem;z-index:1;transition:all .3s;flex-shrink:0;}
+.pt-step.done .pt-dot{background:var(--accent3);border-color:var(--accent3);color:#0a0d14;}
+.pt-step.active .pt-dot{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 3px rgba(79,142,247,.2);}
+.pt-label{font-size:.62rem;color:var(--text3);margin-top:.3rem;text-align:center;white-space:nowrap;}
+.pt-step.done .pt-label{color:var(--accent3);}
+.pt-step.active .pt-label{color:var(--accent);font-weight:600;}
+.lc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:.8rem;border-top:1px solid var(--border);}
+.lc-footer-left{font-size:.75rem;color:var(--text3);display:flex;align-items:center;gap:.35rem;}
+.lc-footer-left i{font-size:.65rem;}
+.lc-actions{display:flex;gap:.4rem;}
+.lc-act-btn{padding:.3rem .7rem;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.73rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.3rem;}
+.lc-act-btn:hover{border-color:var(--accent);color:var(--accent);}
+.lc-act-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.lc-act-btn.primary:hover{opacity:.85;}
+.empty-lamaran{text-align:center;padding:3rem;color:var(--text3);}
+.empty-lamaran i{font-size:2.5rem;opacity:.3;margin-bottom:1rem;display:block;}
+
+/* ── RIGHT SIDEBAR ── */
+.sidebar-right{display:flex;flex-direction:column;gap:1.25rem;}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;}
+.scard-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.875rem;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem;}
+.scard-title i{color:var(--accent4);font-size:.8rem;}
+
+/* STRENGTH METER */
+.strength-circle-wrap{display:flex;justify-content:center;margin-bottom:1rem;}
+.strength-circle{position:relative;width:110px;height:110px;}
+.sc-svg{transform:rotate(-90deg);}
+.sc-bg{fill:none;stroke:var(--border);stroke-width:8;}
+.sc-fill{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:79;transition:stroke-dashoffset 1.5s ease;stroke:url(#scoreGrad);}
+.sc-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.sc-num{font-family:'Sora',sans-serif;font-weight:900;font-size:1.5rem;color:var(--text);}
+.sc-sublabel{font-size:.65rem;color:var(--text3);}
+.strength-items{display:flex;flex-direction:column;gap:.5rem;}
+.si-row{display:flex;align-items:center;gap:.65rem;font-size:.8rem;}
+.si-icon{width:20px;text-align:center;font-size:.75rem;}
+.si-label{flex:1;color:var(--text2);}
+.si-status{font-size:.7rem;font-weight:600;}
+.si-status.done{color:var(--accent3);}
+.si-status.todo{color:var(--text3);}
+
+/* ACTIVITY MINI */
+.activity-mini{display:flex;flex-direction:column;gap:.6rem;}
+.am-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.8rem;}
+.am-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
+.am-body{flex:1;}
+.am-text{color:var(--text2);line-height:1.4;}
+.am-time{font-size:.68rem;color:var(--text3);margin-top:.15rem;}
+
+/* QUICK STATS */
+.qstats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.qs-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:.75rem;text-align:center;}
+.qs-num{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;}
+.qs-label{font-size:.68rem;color:var(--text3);margin-top:.1rem;}
+
+/* SOCIAL LINKS */
+.social-list{display:flex;flex-direction:column;gap:.5rem;}
+.social-item{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border-radius:10px;background:var(--bg3);border:1px solid var(--border);font-size:.83rem;cursor:pointer;transition:border-color .2s;}
+.social-item:hover{border-color:rgba(79,142,247,.25);}
+.social-item i{width:18px;text-align:center;color:var(--accent);}
+.social-item span{flex:1;color:var(--text2);}
+.social-item .si-link{font-size:.7rem;color:var(--accent);margin-left:auto;}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:flex-start;justify-content:center;padding:80px 1rem 2rem;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:560px;width:100%;position:relative;animation:scaleIn .3s ease;margin:auto;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;z-index:1;}
+.modal h3{font-family:'Sora',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:.3rem;}
+.modal .modal-sub{font-size:.85rem;color:var(--text2);margin-bottom:1.5rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.form-group{margin-bottom:.9rem;}
+.form-group label{display:block;font-size:.8rem;font-weight:500;color:var(--text2);margin-bottom:.4rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.65rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.875rem;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group textarea{resize:vertical;min-height:70px;}
+.modal-actions{display:flex;gap:.75rem;justify-content:flex-end;margin-top:1.25rem;}
+.skills-input{display:flex;flex-wrap:wrap;gap:.4rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;cursor:text;min-height:44px;align-items:center;}
+.skill-chip-edit{padding:.25rem .6rem;border-radius:6px;background:rgba(79,142,247,.12);color:var(--accent);font-size:.8rem;display:flex;align-items:center;gap:.3rem;}
+.skill-chip-edit button{background:transparent;border:none;color:var(--accent);cursor:pointer;font-size:.75rem;line-height:1;}
+.skills-input input{background:transparent;border:none;outline:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:80px;}
+
+/* LAMARAN DETAIL */
+.detail-timeline{display:flex;flex-direction:column;gap:0;}
+.dt-step{display:grid;grid-template-columns:20px 1fr;gap:1rem;padding-bottom:1.25rem;position:relative;}
+.dt-step:not(:last-child)::before{content:'';position:absolute;left:9px;top:20px;bottom:0;width:2px;background:var(--border);}
+.dt-step.done::before{background:var(--accent3);}
+.dt-dot{width:20px;height:20px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:.55rem;flex-shrink:0;z-index:1;}
+.dt-step.done .dt-dot{background:var(--accent3);color:#0a0d14;}
+.dt-step.active .dt-dot{background:var(--accent);color:#fff;box-shadow:0 0 0 3px rgba(79,142,247,.2);}
+.dt-body{}
+.dt-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.875rem;margin-bottom:.15rem;}
+.dt-desc{font-size:.78rem;color:var(--text2);line-height:1.5;}
+.dt-date{font-size:.72rem;color:var(--text3);margin-top:.2rem;}
+
+@keyframes scaleIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:3000;background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:1rem 1.5rem;display:flex;align-items:center;gap:.75rem;transform:translateX(130%);transition:transform .35s ease;box-shadow:0 12px 40px rgba(0,0,0,.5);}
+.toast.show{transform:translateX(0);}
+
+@media(max-width:1100px){.profile-body{grid-template-columns:1fr;}.sidebar-right{display:grid;grid-template-columns:1fr 1fr;}.lamaran-stats{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:900px){.nav-links{display:none;}.skills-grid{grid-template-columns:1fr;}.portfolio-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+@media(max-width:600px){.hero-avatar-row{flex-direction:column;align-items:flex-start;}.lamaran-stats{grid-template-columns:repeat(2,1fr);}.sidebar-right{grid-template-columns:1fr;}}
+
+  /* ===== NAV UNIVERSAL ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(10,13,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.4rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;text-decoration:none;}
+  .nav-links{display:flex;gap:1.4rem;list-style:none;}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.84rem;font-weight:500;transition:color .2s;padding:.25rem 0;border-bottom:2px solid transparent;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent);}
+  .nav-cta{display:flex;gap:.75rem;align-items:center;}
+  .btn-ghost{padding:.5rem 1.1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{padding:.5rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .2s;display:inline-flex;align-items:center;}
+  .btn-primary:hover{opacity:.85;}
+  /* mobile nav */
+  @media(max-width:860px){.nav-links{display:none;}.nav-cta .btn-ghost{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">SkillBridge</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="lowongan.html">Lowongan</a></li>
+    <li><a href="skill-assessment.html">Assessment</a></li>
+    <li><a href="mentorship.html">Mentorship</a></li>
+    <li><a href="portfolio-builder.html">Portfolio</a></li>
+    <li><a href="gamification.html">Rewards</a></li>
+    <li><a href="chat.html">Chat</a></li>
+    <li><a href="profil.html" class="active">Profil</a></li>
+  </ul>
+    <div class="nav-cta">
+    <button class="btn-ghost" onclick="SBAuth.openLogin()">Masuk</button>
+    <button class="btn-primary" onclick="SBAuth.openRegister()">Daftar Gratis</button>
+  </div>
+
+</nav>
+
+<!-- ════════════════ HERO ════════════════ -->
+<div class="profile-hero">
+  <div class="hero-bg">
+    <div class="hero-bg-gradient"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+  </div>
+  <div class="hero-cover">
+    <div class="hero-cover-bg"></div>
+    <div class="hero-cover-pattern"></div>
+    <button class="hero-cover-edit" onclick="showToast('🖼️','Upload foto cover baru')"><i class="fas fa-camera"></i> Ganti Cover</button>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-avatar-row">
+      <div style="display:flex;align-items:flex-end;gap:1.25rem">
+        <div class="avatar-wrapper">
+          <div class="avatar-ring-big">
+            <div class="avatar-inner-big" onclick="openModal('edit-profil')">S</div>
+          </div>
+          <div class="online-dot"></div>
+          <div class="avatar-edit-btn" onclick="showToast('📷','Upload foto profil')"><i class="fas fa-camera"></i></div>
+        </div>
+        <div class="hero-info">
+          <h1 class="hero-name">Sabrina Ananda Rizkita</h1>
+          <div class="hero-title">UI/UX Designer &amp; Frontend Developer · Malang, Jawa Timur</div>
+          <div class="hero-meta">
+            <span><i class="fas fa-university"></i>Universitas Muhammadiyah Malang</span>
+            <span><i class="fas fa-graduation-cap"></i>Teknik Informatika, 2022–2026</span>
+            <span><i class="fas fa-briefcase"></i>Terbuka untuk Freelance &amp; Magang</span>
+          </div>
+          <div class="hero-tags">
+            <span class="htag green"><i class="fas fa-circle" style="font-size:.45rem"></i> Aktif Mencari Kerja</span>
+            <span class="htag purple">🏆 Level 14</span>
+            <span class="htag gold">⭐ 3.600 XP</span>
+            <span class="htag">94% AI Match</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <div class="profile-strength-pill"><span class="ps-label">Kekuatan Profil:</span><span class="ps-val">87%</span></div>
+        <button class="btn-ghost" onclick="openModal('edit-profil')"><i class="fas fa-pen"></i> Edit</button>
+        <button class="btn-primary" onclick="openModal('preview-cv')"><i class="fas fa-file-alt"></i> Lihat CV</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEVEL STRIP -->
+<div class="level-strip">
+  <div class="ls-item">
+    <div class="ls-icon" style="background:rgba(245,200,66,.1);color:var(--gold)"><i class="fas fa-crown"></i></div>
+    <div><div class="ls-val" style="color:var(--gold)">Level 14</div><div class="ls-label">Rising Star</div></div>
+  </div>
+  <div class="ls-divider"></div>
+  <div class="ls-item">
+    <div class="ls-icon" style="background:rgba(247,136,79,.1);color:var(--accent4)"><i class="fas fa-fire"></i></div>
+    <div><div class="ls-val" style="color:var(--accent4)">14 Hari</div><div class="ls-label">Streak</div></div>
+  </div>
+  <div class="ls-divider"></div>
+  <div class="ls-item">
+    <div class="ls-icon" style="background:rgba(56,217,169,.1);color:var(--accent3)"><i class="fas fa-medal"></i></div>
+    <div><div class="ls-val" style="color:var(--accent3)">18 Badge</div><div class="ls-label">Diraih</div></div>
+  </div>
+  <div class="ls-divider"></div>
+  <div class="xp-bar-strip">
+    <div class="xb-meta"><span>Level 14 → 15</span><span>3.600 / 5.000 XP</span></div>
+    <div class="xb-track"><div class="xb-fill" id="xpBarStrip"></div></div>
+  </div>
+  <div class="ls-divider"></div>
+  <div class="ls-item">
+    <div class="ls-icon" style="background:rgba(79,142,247,.1);color:var(--accent)"><i class="fas fa-chart-line"></i></div>
+    <div><div class="ls-val" style="color:var(--accent)">#42</div><div class="ls-label">Peringkat Global</div></div>
+  </div>
+</div>
+
+<!-- ════════════════ BODY ════════════════ -->
+<div class="profile-body">
+  <div class="main-col">
+    <!-- TABS -->
+    <div class="profile-tabs">
+      <button class="ptab active" onclick="switchTab('tentang',this)"><i class="fas fa-user"></i> Tentang</button>
+      <button class="ptab" onclick="switchTab('pengalaman',this)"><i class="fas fa-briefcase"></i> Pengalaman</button>
+      <button class="ptab" onclick="switchTab('skill',this)"><i class="fas fa-code"></i> Skill & Sertifikat</button>
+      <button class="ptab" onclick="switchTab('portfolio-tab',this)"><i class="fas fa-layer-group"></i> Portfolio</button>
+      <button class="ptab" onclick="switchTab('lamaran',this)"><i class="fas fa-paper-plane"></i> Status Lamaran <span class="badge" id="lamaranBadge">12</span></button>
+    </div>
+
+    <!-- ═══ TENTANG ═══ -->
+    <div id="tab-tentang" class="tab-panel active">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-user"></i> Tentang Saya</div>
+          <button class="edit-btn" onclick="openModal('edit-about')"><i class="fas fa-pen"></i> Edit</button>
+        </div>
+        <p class="about-text">
+          Halo! Saya <strong>Sabrina Ananda Rizkita</strong>, mahasiswi semester 6 Teknik Informatika di Universitas Muhammadiyah Malang. Saya memiliki passion di bidang <strong>UI/UX Design</strong> dan <strong>Frontend Development</strong>, khususnya dalam menciptakan pengalaman digital yang intuitif dan estetis.
+        </p>
+        <br>
+        <p class="about-text">
+          Selama 2 tahun terakhir saya aktif mengerjakan proyek freelance — dari redesign aplikasi e-commerce hingga membangun design system dari nol. Saya percaya desain yang baik bukan hanya soal visual, tapi juga tentang <strong>memecahkan masalah nyata</strong> pengguna secara efektif.
+        </p>
+        <br>
+        <p class="about-text">
+          Saat ini saya terbuka untuk peluang <strong>magang 3–6 bulan</strong> atau <strong>proyek freelance</strong> di bidang UI/UX Design, Product Design, atau Frontend Development.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-info-circle"></i> Informasi Dasar</div>
+          <button class="edit-btn" onclick="openModal('edit-profil')"><i class="fas fa-pen"></i> Edit</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div>
+            <div style="font-size:.72rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem">Pribadi</div>
+            <div style="display:flex;flex-direction:column;gap:.55rem">
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-user" style="color:var(--accent);width:14px"></i><span style="color:var(--text2)">Sabrina Ananda Rizkita</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-calendar" style="color:var(--accent);width:14px"></i><span style="color:var(--text2)">15 Maret 2003 (22 tahun)</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-map-marker-alt" style="color:var(--accent);width:14px"></i><span style="color:var(--text2)">Malang, Jawa Timur</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-envelope" style="color:var(--accent);width:14px"></i><span style="color:var(--text2)">sabrina.ananda@mail.com</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-phone" style="color:var(--accent);width:14px"></i><span style="color:var(--text2)">+62 812-3456-7890</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:.72rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem">Preferensi Kerja</div>
+            <div style="display:flex;flex-direction:column;gap:.55rem">
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-briefcase" style="color:var(--accent2);width:14px"></i><span style="color:var(--text2)">Freelance & Magang</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-laptop-house" style="color:var(--accent2);width:14px"></i><span style="color:var(--text2)">Remote / Hybrid</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-clock" style="color:var(--accent2);width:14px"></i><span style="color:var(--text2)">Mulai bulan depan</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-money-bill-wave" style="color:var(--accent2);width:14px"></i><span style="color:var(--text2)">Rp 3–8 Jt/bulan</span></div>
+              <div style="display:flex;align-items:center;gap:.65rem;font-size:.85rem"><i class="fas fa-globe" style="color:var(--accent2);width:14px"></i><span style="color:var(--text2)">Indonesia, Internasional</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PENGALAMAN ═══ -->
+    <div id="tab-pengalaman" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-briefcase"></i> Pengalaman Kerja</div>
+          <button class="add-btn" onclick="openModal('add-exp')"><i class="fas fa-plus"></i> Tambah</button>
+        </div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-icon">🎨</div>
+            <div class="tl-body">
+              <div class="tl-title">UI/UX Designer — Freelance</div>
+              <div class="tl-sub">Self-employed · Remote</div>
+              <div class="tl-period"><i class="fas fa-calendar"></i> Jan 2023 – Sekarang · 2 tahun 3 bulan</div>
+              <div class="tl-desc">Mengerjakan 15+ proyek redesign dan design system untuk klien UMKM hingga startup. Spesialisasi pada mobile app dan web platform dengan pendekatan user-centered design.</div>
+              <div class="tl-tags"><span class="tl-tag">Figma</span><span class="tl-tag">Prototyping</span><span class="tl-tag">User Research</span><span class="tl-tag">Design System</span></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-icon">💻</div>
+            <div class="tl-body">
+              <div class="tl-title">Frontend Developer Intern</div>
+              <div class="tl-sub">PT Kreasi Digital Nusantara · Malang</div>
+              <div class="tl-period"><i class="fas fa-calendar"></i> Jun 2023 – Des 2023 · 6 bulan</div>
+              <div class="tl-desc">Membangun dan memelihara komponen UI menggunakan React + Tailwind CSS. Berkontribusi pada fitur dashboard analytics dan sistem notifikasi real-time.</div>
+              <div class="tl-tags"><span class="tl-tag">React</span><span class="tl-tag">TypeScript</span><span class="tl-tag">Tailwind CSS</span><span class="tl-tag">REST API</span></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-icon">📱</div>
+            <div class="tl-body">
+              <div class="tl-title">Product Design Intern</div>
+              <div class="tl-sub">StartupX Malang · Hybrid</div>
+              <div class="tl-period"><i class="fas fa-calendar"></i> Jan 2023 – Mei 2023 · 5 bulan</div>
+              <div class="tl-desc">Merancang flow onboarding pengguna baru, meningkatkan completion rate dari 42% ke 78%. Melakukan usability testing dan iterasi desain berbasis data.</div>
+              <div class="tl-tags"><span class="tl-tag">Figma</span><span class="tl-tag">Usability Testing</span><span class="tl-tag">A/B Testing</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-graduation-cap"></i> Pendidikan</div>
+          <button class="add-btn" onclick="openModal('add-edu')"><i class="fas fa-plus"></i> Tambah</button>
+        </div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-icon">🎓</div>
+            <div class="tl-body">
+              <div class="tl-title">S1 Teknik Informatika</div>
+              <div class="tl-sub">Universitas Muhammadiyah Malang</div>
+              <div class="tl-period"><i class="fas fa-calendar"></i> 2022 – 2026 (semester 6) · IPK: 3.82</div>
+              <div class="tl-desc">Fokus pada Software Engineering dan Human-Computer Interaction. Aktif di Himpunan Mahasiswa Informatika sebagai Koordinator Divisi Teknologi.</div>
+              <div class="tl-tags"><span class="tl-tag">Software Engineering</span><span class="tl-tag">HCI</span><span class="tl-tag">Data Structures</span></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-icon">🏫</div>
+            <div class="tl-body">
+              <div class="tl-title">IPA — SMA Negeri 1 Malang</div>
+              <div class="tl-sub">SMA Negeri 1 Malang</div>
+              <div class="tl-period"><i class="fas fa-calendar"></i> 2019 – 2022</div>
+              <div class="tl-desc">Lulus dengan nilai rata-rata 92.4. Juara 1 Olimpiade Komputer tingkat Kabupaten Malang 2021.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SKILL ═══ -->
+    <div id="tab-skill" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-code"></i> Skill Teknis</div>
+          <button class="edit-btn" onclick="openModal('edit-skills')"><i class="fas fa-pen"></i> Edit</button>
+        </div>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-certificate"></i> Sertifikat & Pencapaian</div>
+          <button class="add-btn" onclick="openModal('add-cert')"><i class="fas fa-plus"></i> Tambah</button>
+        </div>
+        <div class="cert-list" id="certList"></div>
+      </div>
+    </div>
+
+    <!-- ═══ PORTFOLIO ═══ -->
+    <div id="tab-portfolio-tab" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-layer-group"></i> Proyek Portfolio</div>
+          <button class="add-btn" onclick="openModal('add-project')"><i class="fas fa-plus"></i> Tambah Proyek</button>
+        </div>
+        <div class="portfolio-grid" id="portfolioGrid"></div>
+      </div>
+    </div>
+
+    <!-- ═══ STATUS LAMARAN ═══ -->
+    <div id="tab-lamaran" class="tab-panel">
+      <div class="lamaran-stats" id="lamaranStats"></div>
+      <div class="lamaran-filter">
+        <button class="lf-btn active" onclick="filterLamaran('semua',this)">Semua (12)</button>
+        <button class="lf-btn" onclick="filterLamaran('review',this)">Ditinjau (3)</button>
+        <button class="lf-btn" onclick="filterLamaran('test',this)">Tes (2)</button>
+        <button class="lf-btn" onclick="filterLamaran('interview',this)">Interview (3)</button>
+        <button class="lf-btn" onclick="filterLamaran('offered',this)">Ditawari (1)</button>
+        <button class="lf-btn" onclick="filterLamaran('rejected',this)">Ditolak (2)</button>
+        <button class="lf-btn" onclick="filterLamaran('pending',this)">Menunggu (1)</button>
+      </div>
+      <div class="lamaran-list" id="lamaranList"></div>
+    </div>
+
+  </div><!-- end main-col -->
+
+  <!-- ════ SIDEBAR RIGHT ════ -->
+  <div class="sidebar-right">
+
+    <!-- PROFILE STRENGTH -->
+    <div class="scard">
+      <div class="scard-title"><i class="fas fa-chart-pie"></i> Kekuatan Profil</div>
+      <div class="strength-circle-wrap">
+        <div class="strength-circle">
+          <svg class="sc-svg" viewBox="0 0 100 100" width="110" height="110">
+            <defs>
+              <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#4f8ef7"/>
+                <stop offset="100%" stop-color="#38d9a9"/>
+              </linearGradient>
+            </defs>
+            <circle class="sc-bg" cx="50" cy="50" r="45"/>
+            <circle class="sc-fill" cx="50" cy="50" r="45" id="scoreCircle"/>
+          </svg>
+          <div class="sc-text"><div class="sc-num">87%</div><div class="sc-sublabel">Profil Score</div></div>
+        </div>
+      </div>
+      <div class="strength-items">
+        <div class="si-row"><span class="si-icon">✅</span><span class="si-label">Foto profil</span><span class="si-status done">Lengkap</span></div>
+        <div class="si-row"><span class="si-icon">✅</span><span class="si-label">Tentang saya</span><span class="si-status done">Lengkap</span></div>
+        <div class="si-row"><span class="si-icon">✅</span><span class="si-label">Pengalaman kerja</span><span class="si-status done">3 item</span></div>
+        <div class="si-row"><span class="si-icon">✅</span><span class="si-label">Pendidikan</span><span class="si-status done">Lengkap</span></div>
+        <div class="si-row"><span class="si-icon">✅</span><span class="si-label">Skill teknis</span><span class="si-status done">12 skill</span></div>
+        <div class="si-row"><span class="si-icon">⚠️</span><span class="si-label">Video intro</span><span class="si-status todo">Belum ada</span></div>
+        <div class="si-row"><span class="si-icon">⚠️</span><span class="si-label">Referensi</span><span class="si-status todo">Belum ada</span></div>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;margin-top:1rem;font-size:.82rem" onclick="showToast('💡','Tips: Tambahkan video intro untuk +5% kekuatan profil!')">
+        <i class="fas fa-magic"></i> Tingkatkan Profil
+      </button>
+    </div>
+
+    <!-- QUICK STATS -->
+    <div class="scard">
+      <div class="scard-title"><i class="fas fa-chart-bar"></i> Statistik</div>
+      <div class="qstats">
+        <div class="qs-item"><div class="qs-num" style="color:var(--accent)">12</div><div class="qs-label">Total Lamaran</div></div>
+        <div class="qs-item"><div class="qs-num" style="color:var(--accent3)">3</div><div class="qs-label">Interview</div></div>
+        <div class="qs-item"><div class="qs-num" style="color:var(--gold)">1</div><div class="qs-label">Penawaran</div></div>
+        <div class="qs-item"><div class="qs-num" style="color:var(--accent2)">8%</div><div class="qs-label">Interview Rate</div></div>
+        <div class="qs-item"><div class="qs-num" style="color:var(--accent4)">284</div><div class="qs-label">Profil Dilihat</div></div>
+        <div class="qs-item"><div class="qs-num" style="color:var(--accent3)">47</div><div class="qs-label">Kali Muncul</div></div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="scard">
+      <div class="scard-title"><i class="fas fa-history"></i> Aktivitas Terbaru</div>
+      <div class="activity-mini" id="activityMini"></div>
+    </div>
+
+    <!-- SOCIAL LINKS -->
+    <div class="scard">
+      <div class="scard-title"><i class="fas fa-link"></i> Tautan & Sosial</div>
+      <div class="social-list">
+        <div class="social-item" onclick="showToast('🔗','Membuka LinkedIn...')"><i class="fab fa-linkedin"></i><span>LinkedIn</span><span class="si-link">linkedin.com/in/sabrina</span></div>
+        <div class="social-item" onclick="showToast('💻','Membuka GitHub...')"><i class="fab fa-github"></i><span>GitHub</span><span class="si-link">github.com/sabrina-ar</span></div>
+        <div class="social-item" onclick="showToast('🖼️','Membuka Behance...')"><i class="fab fa-behance"></i><span>Behance</span><span class="si-link">behance.net/sabrina</span></div>
+        <div class="social-item" onclick="showToast('🌐','Membuka portfolio...')"><i class="fas fa-globe"></i><span>Portfolio</span><span class="si-link">sabrina.vercel.app</span></div>
+      </div>
+      <button class="add-btn" style="width:100%;margin-top:.75rem;justify-content:center" onclick="showToast('➕','Tambah tautan baru')"><i class="fas fa-plus"></i> Tambah Tautan</button>
+    </div>
+
+  </div><!-- end sidebar-right -->
+</div><!-- end profile-body -->
+
+<!-- ═══════════ MODALS ═══════════ -->
+
+<!-- EDIT PROFIL -->
+<div class="modal-overlay" id="modal-edit-profil">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('edit-profil')"><i class="fas fa-times"></i></button>
+    <h3>Edit Profil</h3>
+    <p class="modal-sub">Perbarui informasi profil publik kamu</p>
+    <div class="form-row">
+      <div class="form-group"><label>Nama Depan</label><input type="text" value="Sabrina Ananda"></div>
+      <div class="form-group"><label>Nama Belakang</label><input type="text" value="Rizkita"></div>
+    </div>
+    <div class="form-group"><label>Judul Profil</label><input type="text" value="UI/UX Designer & Frontend Developer"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Kota</label><input type="text" value="Malang"></div>
+      <div class="form-group"><label>Provinsi</label><input type="text" value="Jawa Timur"></div>
+    </div>
+    <div class="form-group"><label>Email</label><input type="email" value="sabrina.ananda@mail.com"></div>
+    <div class="form-group"><label>Nomor WhatsApp</label><input type="tel" value="+62 812-3456-7890"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Tipe Pekerjaan</label>
+        <select><option selected>Freelance & Magang</option><option>Full-time</option><option>Part-time</option></select>
+      </div>
+      <div class="form-group"><label>Lokasi Kerja</label>
+        <select><option selected>Remote / Hybrid</option><option>Remote</option><option>On-site</option></select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('edit-profil')">Batal</button>
+      <button class="btn-primary" onclick="closeModal('edit-profil');showToast('✅','Profil berhasil diperbarui!')">Simpan Perubahan</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT ABOUT -->
+<div class="modal-overlay" id="modal-edit-about">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('edit-about')"><i class="fas fa-times"></i></button>
+    <h3>Edit Tentang Saya</h3>
+    <p class="modal-sub">Tulis deskripsi singkat yang menarik perhatian recruiter</p>
+    <div class="form-group">
+      <label>Bio (maks. 500 karakter)</label>
+      <textarea rows="7" id="aboutText">Halo! Saya Sabrina Ananda Rizkita, mahasiswi semester 6 Teknik Informatika di Universitas Muhammadiyah Malang. Saya memiliki passion di bidang UI/UX Design dan Frontend Development, khususnya dalam menciptakan pengalaman digital yang intuitif dan estetis. Saya terbuka untuk magang 3–6 bulan atau proyek freelance.</textarea>
+    </div>
+    <div style="font-size:.75rem;color:var(--text3);text-align:right;margin-top:-.5rem;margin-bottom:.75rem"><span id="aboutCount">0</span> / 500 karakter</div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('edit-about')">Batal</button>
+      <button class="btn-primary" onclick="closeModal('edit-about');showToast('✅','Bio berhasil diperbarui!')">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT SKILLS -->
+<div class="modal-overlay" id="modal-edit-skills">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('edit-skills')"><i class="fas fa-times"></i></button>
+    <h3>Edit Skill</h3>
+    <p class="modal-sub">Ketik skill lalu tekan Enter untuk menambahkan</p>
+    <div class="form-group">
+      <label>Skill Kamu</label>
+      <div class="skills-input" id="skillsInputBox">
+        <span class="skill-chip-edit">Figma <button onclick="removeChip(this)">×</button></span>
+        <span class="skill-chip-edit">React <button onclick="removeChip(this)">×</button></span>
+        <span class="skill-chip-edit">TypeScript <button onclick="removeChip(this)">×</button></span>
+        <span class="skill-chip-edit">Tailwind CSS <button onclick="removeChip(this)">×</button></span>
+        <span class="skill-chip-edit">Node.js <button onclick="removeChip(this)">×</button></span>
+        <input type="text" id="newSkillInput" placeholder="Tambah skill..." onkeydown="addSkillChip(event)">
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('edit-skills')">Batal</button>
+      <button class="btn-primary" onclick="closeModal('edit-skills');showToast('✅','Skill berhasil diperbarui!')">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD EXP -->
+<div class="modal-overlay" id="modal-add-exp">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('add-exp')"><i class="fas fa-times"></i></button>
+    <h3>Tambah Pengalaman Kerja</h3>
+    <p class="modal-sub">Lengkapi informasi pekerjaan kamu</p>
+    <div class="form-group"><label>Jabatan / Posisi</label><input type="text" placeholder="cth: UI/UX Designer Intern"></div>
+    <div class="form-group"><label>Perusahaan / Klien</label><input type="text" placeholder="cth: Tokopedia"></div>
+    <div class="form-group"><label>Tipe</label><select><option>Freelance</option><option>Magang</option><option>Part-time</option><option>Full-time</option></select></div>
+    <div class="form-row">
+      <div class="form-group"><label>Mulai</label><input type="month"></div>
+      <div class="form-group"><label>Selesai</label><input type="month" placeholder="Kosongkan jika masih aktif"></div>
+    </div>
+    <div class="form-group"><label>Deskripsi</label><textarea rows="3" placeholder="Ceritakan tanggung jawab dan pencapaianmu..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('add-exp')">Batal</button>
+      <button class="btn-primary" onclick="closeModal('add-exp');showToast('✅','Pengalaman berhasil ditambahkan!')">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CERT -->
+<div class="modal-overlay" id="modal-add-cert">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('add-cert')"><i class="fas fa-times"></i></button>
+    <h3>Tambah Sertifikat</h3>
+    <p class="modal-sub">Tambahkan sertifikat atau penghargaan yang kamu miliki</p>
+    <div class="form-group"><label>Nama Sertifikat</label><input type="text" placeholder="cth: Google UX Design Certificate"></div>
+    <div class="form-group"><label>Penerbit</label><input type="text" placeholder="cth: Google / Coursera"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Tanggal Terbit</label><input type="month"></div>
+      <div class="form-group"><label>Tanggal Kedaluwarsa</label><input type="month"></div>
+    </div>
+    <div class="form-group"><label>ID Sertifikat / URL Verifikasi</label><input type="text" placeholder="https://..."></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('add-cert')">Batal</button>
+      <button class="btn-primary" onclick="closeModal('add-cert');showToast('✅','Sertifikat berhasil ditambahkan! +50 XP')">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PROJECT -->
+<div class="modal-overlay" id="modal-add-project">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('add-project')"><i class="fas fa-times"></i></button>
+    <h3>Tambah Proyek Portfolio</h3>
+    <p class="modal-sub">Tampilkan karya terbaikmu ke recruiter</p>
+    <div class="form-group"><label>Nama Proyek</label><input type="text" placeholder="cth: Redesign App Tokopedia"></div>
+    <div class="form-group"><label>Kategori</label><select><option>UI/UX Design</option><option>Frontend Dev</option><option>Full-stack</option><option>Mobile App</option><option>Data Science</option></select></div>
+    <div class="form-group"><label>Deskripsi Singkat</label><textarea rows="2" placeholder="Jelaskan proyek dan dampaknya..."></textarea></div>
+    <div class="form-group"><label>Link Proyek</label><input type="url" placeholder="https://..."></div>
+    <div class="form-group"><label>Link GitHub (opsional)</label><input type="url" placeholder="https://github.com/..."></div>
+    <div class="form-group"><label>Teknologi yang Digunakan</label><input type="text" placeholder="cth: Figma, React, Tailwind CSS"></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('add-project')">Batal</button>
+      <button class="btn-primary" onclick="closeModal('add-project');showToast('✅','Proyek berhasil ditambahkan! +80 XP')">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL LAMARAN -->
+<div class="modal-overlay" id="modal-detail-lamaran">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('detail-lamaran')"><i class="fas fa-times"></i></button>
+    <div id="detailLamaranContent"></div>
+  </div>
+</div>
+
+<!-- PREVIEW CV -->
+<div class="modal-overlay" id="modal-preview-cv">
+  <div class="modal" style="max-width:640px">
+    <button class="modal-close" onclick="closeModal('preview-cv')"><i class="fas fa-times"></i></button>
+    <h3>Preview CV — Sabrina Ananda Rizkita</h3>
+    <p class="modal-sub">CV digenerate otomatis dari data profil kamu</p>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.5rem;font-size:.82rem;line-height:1.7;color:var(--text2)">
+      <div style="font-family:'Sora',sans-serif;font-weight:900;font-size:1.3rem;color:var(--text);margin-bottom:.25rem">SABRINA ANANDA RIZKITA</div>
+      <div style="color:var(--accent);margin-bottom:.25rem">UI/UX Designer & Frontend Developer</div>
+      <div style="font-size:.75rem;color:var(--text3);margin-bottom:1rem">Malang, Jawa Timur · sabrina.ananda@mail.com · +62 812-3456-7890 · sabrina.vercel.app</div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-family:'Sora',sans-serif">RINGKASAN</div>
+      <div style="margin-bottom:1rem">Mahasiswi Teknik Informatika semester 6 dengan 2+ tahun pengalaman UI/UX Design dan Frontend Development. Telah mengerjakan 15+ proyek freelance.</div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-family:'Sora',sans-serif">PENGALAMAN</div>
+      <div style="margin-bottom:.5rem"><strong style="color:var(--text)">UI/UX Designer Freelance</strong> · Self-employed · Jan 2023–Sekarang</div>
+      <div style="margin-bottom:.5rem"><strong style="color:var(--text)">Frontend Developer Intern</strong> · PT Kreasi Digital · Jun–Des 2023</div>
+      <div style="margin-bottom:1rem"><strong style="color:var(--text)">Product Design Intern</strong> · StartupX Malang · Jan–Mei 2023</div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-family:'Sora',sans-serif">SKILL</div>
+      <div style="margin-bottom:1rem">Figma · React · TypeScript · Tailwind CSS · Node.js · Prototyping · User Research · Design System</div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-family:'Sora',sans-serif">PENDIDIKAN</div>
+      <div>S1 Teknik Informatika · UMM · 2022–2026 · IPK 3.82</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('preview-cv')">Tutup</button>
+      <button class="btn-primary" onclick="showToast('📄','CV berhasil diunduh!')"><i class="fas fa-download"></i> Unduh PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toastIcon">✅</span>&nbsp;<span id="toastText">Berhasil!</span></div>
+
+<script>
+/* ══════════════ DATA ══════════════ */
+const skills = {
+  'Design': [{name:'Figma',pct:92,color:'#f24e1e'},{name:'Adobe XD',pct:78,color:'#ff61f6'},{name:'Prototyping',pct:88,color:'var(--accent2)'},{name:'Design System',pct:82,color:'var(--accent)'}],
+  'Frontend': [{name:'React',pct:85,color:'var(--accent)'},{name:'TypeScript',pct:78,color:'#3178c6'},{name:'Tailwind CSS',pct:90,color:'var(--accent3)'},{name:'Next.js',pct:72,color:'var(--text)'}],
+  'Lainnya': [{name:'Node.js',pct:68,color:'#68a063'},{name:'PostgreSQL',pct:62,color:'#336791'},{name:'Git',pct:85,color:'#f05032'},{name:'Figma Auto Layout',pct:95,color:'var(--accent4)'}],
+};
+
+const certs = [
+  {icon:'🎨',bg:'rgba(242,78,30,.12)',name:'Google UX Design Certificate',issuer:'Google · Coursera',date:'Mar 2024',level:'Professional'},
+  {icon:'⚛️',bg:'rgba(79,142,247,.12)',name:'React – The Complete Guide',issuer:'Udemy · Maximilian S.',date:'Nov 2023',level:'Advanced'},
+  {icon:'📊',bg:'rgba(245,200,66,.12)',name:'Data Analytics Fundamentals',issuer:'IBM · Coursera',date:'Agu 2023',level:'Intermediate'},
+  {icon:'🖥️',bg:'rgba(56,217,169,.12)',name:'Frontend Developer (Meta)',issuer:'Meta · Coursera',date:'Jun 2023',level:'Professional'},
+  {icon:'🔒',bg:'rgba(123,94,248,.12)',name:'Cybersecurity Essentials',issuer:'Cisco NetAcad',date:'Jan 2023',level:'Beginner'},
+];
+
+const portfolios = [
+  {emoji:'🏪',bg:'linear-gradient(135deg,#1a2035,#252d47)',title:'Redesign Tokopedia Mobile',desc:'Redesign fitur Wishlist & Cart Flow. Meningkatkan task completion rate 34%.',tags:['Figma','User Research','Mobile'],link:'sabrina.vercel.app/tokopedia',github:''},
+  {emoji:'🏥',bg:'linear-gradient(135deg,#1a2035,#0d1a2e)',title:'HealthTrack Dashboard',desc:'Dashboard analytics kesehatan berbasis React + D3.js untuk klinik',tags:['React','D3.js','TypeScript'],link:'healthtrack.demo.app',github:'github.com/sabrina/ht'},
+  {emoji:'💰',bg:'linear-gradient(135deg,#1a2035,#1a2518)',title:'FinApp – Personal Finance',desc:'Aplikasi manajemen keuangan pribadi. Design system dari nol.',tags:['Figma','Design System','Prototype'],link:'behance.net/sabrina',github:''},
+  {emoji:'🎓',bg:'linear-gradient(135deg,#1a2035,#2a1a35)',title:'E-Learning Platform UI',desc:'Platform LMS dengan fitur AI quiz generator dan progress tracking.',tags:['React','Tailwind','Firebase'],link:'elearn-demo.vercel.app',github:'github.com/sabrina/el'},
+];
+
+const lamaranData = [
+  {id:1,logo:'T',logoColor:'linear-gradient(135deg,#38d9a9,#2bc0d9)',title:'UI/UX Designer',company:'Tokopedia',type:'Freelance · Remote',date:'21 Apr 2025',status:'interview',statusLabel:'Interview Aktif',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes',done:true},{label:'Interview',active:true},{label:'Tawaran'}],notes:'Interview Tahap 2 – Kamis 24 Apr, 14.00 WIB',salary:'Rp 6–10 Jt'},
+  {id:2,logo:'G',logoColor:'linear-gradient(135deg,#00aab5,#007960)',title:'Backend Developer Intern',company:'Gojek',type:'Magang · Jakarta',date:'20 Apr 2025',status:'test',statusLabel:'Technical Test',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes',active:true},{label:'Interview'},{label:'Tawaran'}],notes:'Technical test deadline: 26 Apr 2025',salary:'Rp 3–4 Jt'},
+  {id:3,logo:'S',logoColor:'linear-gradient(135deg,#f77c2c,#f7384f)',title:'Data Analyst Intern',company:'Shopee',type:'Magang · Remote',date:'18 Apr 2025',status:'review',statusLabel:'Sedang Ditinjau',steps:[{label:'Kirim',done:true},{label:'Tinjau',active:true},{label:'Tes'},{label:'Interview'},{label:'Tawaran'}],notes:'Menunggu review dari Tim HR',salary:'Rp 3.5 Jt'},
+  {id:4,logo:'T',logoColor:'linear-gradient(135deg,#0075ff,#00c4ff)',title:'Frontend Developer',company:'Traveloka',type:'Freelance · Remote',date:'15 Apr 2025',status:'offered',statusLabel:'Penawaran Diterima 🎉',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes',done:true},{label:'Interview',done:true},{label:'Tawaran',active:true}],notes:'Penawaran: Rp 9 Jt/bln · Kontrak 3 bulan',salary:'Rp 9 Jt'},
+  {id:5,logo:'B',logoColor:'linear-gradient(135deg,#1565c0,#0d47a1)',title:'Mobile Developer Intern',company:'Bank BCA',type:'Magang · Jakarta',date:'10 Apr 2025',status:'interview',statusLabel:'Interview Tahap 1',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes',done:true},{label:'Interview',active:true},{label:'Tawaran'}],notes:'Interview HR – Senin 28 Apr, 09.00 WIB',salary:'Rp 4 Jt'},
+  {id:6,logo:'U',logoColor:'linear-gradient(135deg,#1e88e5,#e53935)',title:'Content Creator',company:'Unilever',type:'Freelance · Remote',date:'8 Apr 2025',status:'review',statusLabel:'Sedang Ditinjau',steps:[{label:'Kirim',done:true},{label:'Tinjau',active:true},{label:'Tes'},{label:'Interview'},{label:'Tawaran'}],notes:'Profil sedang di-review oleh Tim Marketing',salary:'Rp 3–5 Jt'},
+  {id:7,logo:'K',logoColor:'linear-gradient(135deg,#e53935,#b71c1c)',title:'Graphic Designer',company:'Kompas Gramedia',type:'Freelance · Jakarta',date:'5 Apr 2025',status:'rejected',statusLabel:'Tidak Dilanjutkan',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes'},{label:'Interview'},{label:'Tawaran'}],notes:'Posisi sudah diisi. Diminta apply lagi 3 bulan ke depan.',salary:'Rp 2–4 Jt'},
+  {id:8,logo:'B',logoColor:'linear-gradient(135deg,#e53935,#ff6f00)',title:'Digital Marketing Intern',company:'Bukalapak',type:'Magang · Surabaya',date:'2 Apr 2025',status:'rejected',statusLabel:'Tidak Dilanjutkan',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes'},{label:'Interview'},{label:'Tawaran'}],notes:'Kualifikasi tidak sesuai saat ini.',salary:'Rp 2.5 Jt'},
+  {id:9,logo:'G',logoColor:'linear-gradient(135deg,#4f8ef7,#7b5ef8)',title:'ML Engineer Intern',company:'GoTo Financial',type:'Magang · Remote',date:'28 Mar 2025',status:'review',statusLabel:'Sedang Ditinjau',steps:[{label:'Kirim',done:true},{label:'Tinjau',active:true},{label:'Tes'},{label:'Interview'},{label:'Tawaran'}],notes:'Profil dalam antrian review',salary:'Rp 5 Jt'},
+  {id:10,logo:'O',logoColor:'linear-gradient(135deg,#7b1fa2,#9c27b0)',title:'Product Manager Intern',company:'OVO',type:'Magang · Jakarta',date:'25 Mar 2025',status:'interview',statusLabel:'Interview Final',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes',done:true},{label:'Interview',active:true},{label:'Tawaran'}],notes:'Interview dengan CPO – Rabu 30 Apr',salary:'Rp 3.5 Jt'},
+  {id:11,logo:'V',logoColor:'linear-gradient(135deg,#00897b,#1de9b6)',title:'3D Motion Designer',company:'Vidio.com',type:'Freelance · Remote',date:'22 Mar 2025',status:'test',statusLabel:'Portfolio Review',steps:[{label:'Kirim',done:true},{label:'Tinjau',done:true},{label:'Tes',active:true},{label:'Interview'},{label:'Tawaran'}],notes:'Mengirimkan portfolio tambahan untuk review',salary:'Rp 8–20 Jt'},
+  {id:12,logo:'P',logoColor:'linear-gradient(135deg,#37474f,#546e7a)',title:'Cybersecurity Analyst',company:'Pertamina Digital',type:'Magang · Jakarta',date:'18 Mar 2025',status:'pending',statusLabel:'Menunggu Konfirmasi',steps:[{label:'Kirim',done:true},{label:'Tinjau'},{label:'Tes'},{label:'Interview'},{label:'Tawaran'}],notes:'Lamaran terkirim. Menunggu konfirmasi dari HR.',salary:'Rp 4.5 Jt'},
+];
+
+const activities = [
+  {icon:'📤',bg:'rgba(79,142,247,.12)',text:'Lamar UI/UX Designer · Tokopedia',time:'2 jam lalu'},
+  {icon:'✅',bg:'rgba(56,217,169,.12)',text:'Interview diterima dari Traveloka',time:'5 jam lalu'},
+  {icon:'🔥',bg:'rgba(247,136,79,.12)',text:'Streak 14 hari! +30 koin dikreditkan',time:'Kemarin'},
+  {icon:'🏆',bg:'rgba(123,94,248,.12)',text:'Badge "Speed Applier" diraih',time:'Kemarin'},
+  {icon:'📚',bg:'rgba(245,200,66,.12)',text:'Selesaikan kursus React Advanced',time:'2 hari lalu'},
+];
+
+/* ══════════════ RENDER ══════════════ */
+function renderSkills() {
+  document.getElementById('skillsGrid').innerHTML = Object.entries(skills).map(([cat, list]) => `
+    <div class="skill-cat">
+      <div class="skill-cat-label">${cat}</div>
+      <div class="skill-bars">
+        ${list.map(s => `
+          <div class="skill-bar-item">
+            <div class="sb-row"><span class="sb-name">${s.name}</span><span class="sb-pct">${s.pct}%</span></div>
+            <div class="sb-track"><div class="sb-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function renderCerts() {
+  document.getElementById('certList').innerHTML = certs.map(c => `
+    <div class="cert-item">
+      <div class="cert-icon" style="background:${c.bg}">${c.icon}</div>
+      <div class="cert-info">
+        <div class="cert-name">${c.name}</div>
+        <div class="cert-issuer">${c.issuer} · ${c.date}</div>
+      </div>
+      <div class="cert-badge">${c.level}</div>
+    </div>`).join('');
+}
+
+function renderPortfolio() {
+  document.getElementById('portfolioGrid').innerHTML = portfolios.map(p => `
+    <div class="port-card">
+      <div class="port-thumb" style="background:${p.bg}">
+        <span style="font-size:2.8rem">${p.emoji}</span>
+        <div class="port-overlay"><i class="fas fa-external-link-alt port-overlay-icon"></i></div>
+      </div>
+      <div class="port-info">
+        <div class="port-title">${p.title}</div>
+        <div class="port-desc">${p.desc}</div>
+        <div class="port-tags">${p.tags.map(t=>`<span class="port-tag">${t}</span>`).join('')}</div>
+        <div class="port-links">
+          <div class="port-link" onclick="showToast('🔗','Membuka demo...')"><i class="fas fa-external-link-alt"></i> Demo</div>
+          ${p.github ? `<div class="port-link" onclick="showToast('💻','Membuka GitHub...')"><i class="fab fa-github"></i> Code</div>` : ''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderLamaranStats() {
+  const stats = [
+    {num:12,label:'Total Lamaran',color:'var(--accent)'},
+    {num:lamaranData.filter(l=>l.status==='interview').length,label:'Dalam Interview',color:'var(--accent3)'},
+    {num:1,label:'Penawaran',color:'var(--gold)'},
+    {num:2,label:'Ditolak',color:'#f85e5e'},
+  ];
+  document.getElementById('lamaranStats').innerHTML = stats.map(s => `
+    <div class="lst-card">
+      <div class="lst-num" style="color:${s.color}">${s.num}</div>
+      <div class="lst-label">${s.label}</div>
+    </div>`).join('');
+}
+
+function renderLamaran(list) {
+  document.getElementById('lamaranList').innerHTML = list.length ? list.map(l => {
+    const stepsHtml = l.steps.map(s => `
+      <div class="pt-step${s.done?' done':''}${s.active?' active':''}">
+        <div class="pt-dot">${s.done?'✓':''}</div>
+        <div class="pt-label">${s.label}</div>
+      </div>`).join('');
+    const statusClass = {review:'s-review',test:'s-test',interview:'s-interview',offered:'s-offered',rejected:'s-rejected',pending:'s-pending'}[l.status];
+    return `
+      <div class="lamaran-card" onclick="openDetailLamaran(${l.id})">
+        <div class="lc-top">
+          <div class="lc-logo" style="background:${l.logoColor}">${l.logo}</div>
+          <div class="lc-info">
+            <div class="lc-title">${l.title}</div>
+            <div class="lc-company"><i class="fas fa-building" style="font-size:.65rem"></i>${l.company} · <span style="color:var(--text3)">${l.type}</span></div>
+          </div>
+          <div class="lc-right">
+            <div class="lc-date"><i class="fas fa-calendar" style="font-size:.6rem"></i> ${l.date}</div>
+            <span class="status-badge ${statusClass}">${l.statusLabel}</span>
+          </div>
+        </div>
+        <div class="progress-tracker">${stepsHtml}</div>
+        <div class="lc-footer">
+          <div class="lc-footer-left"><i class="fas fa-sticky-note"></i>${l.notes}</div>
+          <div class="lc-actions">
+            <button class="lc-act-btn" onclick="event.stopPropagation();openChat(${l.id})"><i class="fas fa-comment"></i> Chat</button>
+            ${l.status==='offered'?`<button class="lc-act-btn primary" onclick="event.stopPropagation();showToast('🎉','Penawaran diterima!')">Terima Tawaran</button>`:''}
+            ${l.status==='interview'?`<button class="lc-act-btn primary" onclick="event.stopPropagation();showToast('📅','Buka jadwal interview')">Lihat Jadwal</button>`:''}
+          </div>
+        </div>
+      </div>`;
+  }).join('') : `<div class="empty-lamaran"><i class="fas fa-inbox"></i><div style="font-weight:600;color:var(--text2)">Belum ada lamaran di kategori ini</div></div>`;
+}
+
+function filterLamaran(filter, btn) {
+  document.querySelectorAll('.lf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const map = {semua:null,review:'review',test:'test',interview:'interview',offered:'offered',rejected:'rejected',pending:'pending'};
+  const f = map[filter];
+  renderLamaran(f ? lamaranData.filter(l=>l.status===f) : lamaranData);
+}
+
+function renderActivityMini() {
+  document.getElementById('activityMini').innerHTML = activities.map(a => `
+    <div class="am-item">
+      <div class="am-icon" style="background:${a.bg}">${a.icon}</div>
+      <div class="am-body">
+        <div class="am-text">${a.text}</div>
+        <div class="am-time">${a.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+function openDetailLamaran(id) {
+  const l = lamaranData.find(x=>x.id===id);
+  const statusClass = {review:'s-review',test:'s-test',interview:'s-interview',offered:'s-offered',rejected:'s-rejected',pending:'s-pending'}[l.status];
+  const timeline = [
+    {title:'Lamaran Dikirim',desc:`Kamu melamar posisi ${l.title} di ${l.company}`,date:l.date,done:true},
+    {title:'CV Ditinjau',desc:'Tim HR sedang meninjau profil dan CV kamu',date:l.steps[1]?.done?'22 Apr 2025':'Menunggu',done:l.steps[1]?.done||l.steps[1]?.active,active:l.steps[1]?.active},
+    {title:'Tes / Tantangan',desc:'Technical test atau portfolio review',date:l.steps[2]?.done?'24 Apr 2025':'Menunggu',done:l.steps[2]?.done,active:l.steps[2]?.active},
+    {title:'Interview',desc:'Sesi wawancara dengan HR atau tim teknis',date:l.steps[3]?.done||l.steps[3]?.active?'Segera':'Menunggu',done:l.steps[3]?.done,active:l.steps[3]?.active},
+    {title:'Penawaran',desc:'Negosiasi dan keputusan akhir',date:l.steps[4]?.active?'Aktif':'Menunggu',done:l.steps[4]?.active,active:l.steps[4]?.active},
+  ];
+  document.getElementById('detailLamaranContent').innerHTML = `
+    <h3 style="font-family:'Sora',sans-serif;font-weight:800;margin-bottom:.25rem">${l.title}</h3>
+    <p style="font-size:.85rem;color:var(--text2);margin-bottom:1rem">${l.company} · ${l.type}</p>
+    <div style="display:flex;gap:.75rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap">
+      <span class="status-badge ${statusClass}">${l.statusLabel}</span>
+      <span style="font-size:.8rem;color:var(--text3)"><i class="fas fa-calendar" style="margin-right:.3rem"></i>Dilamar ${l.date}</span>
+      <span style="font-size:.8rem;color:var(--accent3)"><i class="fas fa-money-bill-wave" style="margin-right:.3rem"></i>${l.salary}</span>
+    </div>
+    <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:.75rem;color:var(--text2)">TIMELINE PROSES</div>
+    <div class="detail-timeline">
+      ${timeline.map(t=>`
+        <div class="dt-step${t.done?' done':''}${t.active?' active':''}">
+          <div class="dt-dot">${t.done?'✓':''}</div>
+          <div class="dt-body">
+            <div class="dt-title">${t.title}</div>
+            <div class="dt-desc">${t.desc}</div>
+            <div class="dt-date">${t.date}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:.85rem;margin-top:.75rem">
+      <div style="font-size:.72rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem">Catatan Terbaru</div>
+      <div style="font-size:.83rem;color:var(--text2)">${l.notes}</div>
+    </div>
+    <div style="display:flex;gap:.6rem;margin-top:1.25rem">
+      <button class="btn-ghost" style="flex:1;justify-content:center" onclick="closeModal('detail-lamaran');showToast('💬','Membuka chat...')"><i class="fas fa-comment"></i> Chat Recruiter</button>
+      <button class="btn-primary" style="flex:1;justify-content:center" onclick="closeModal('detail-lamaran')"><i class="fas fa-times"></i> Tutup</button>
+    </div>`;
+  openModal('detail-lamaran');
+}
+
+function openChat(id) {
+  showToast('💬','Membuka chat dengan recruiter...');
+  setTimeout(()=>window.location.href='chat.html',1200);
+}
+
+/* ══════════════ UI UTILITIES ══════════════ */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function openModal(id) { document.getElementById('modal-'+id).classList.add('open'); }
+function closeModal(id) { document.getElementById('modal-'+id).classList.remove('open'); }
+
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastText').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+function removeChip(btn) { btn.closest('.skill-chip-edit').remove(); }
+
+function addSkillChip(e) {
+  if(e.key==='Enter') {
+    e.preventDefault();
+    const input = document.getElementById('newSkillInput');
+    const val = input.value.trim();
+    if(!val) return;
+    const chip = document.createElement('span');
+    chip.className = 'skill-chip-edit';
+    chip.innerHTML = `${val} <button onclick="removeChip(this)">×</button>`;
+    document.getElementById('skillsInputBox').insertBefore(chip, input);
+    input.value = '';
+  }
+}
+
+// About char count
+const aboutTextarea = document.getElementById('aboutText');
+if(aboutTextarea) {
+  const updateCount = () => document.getElementById('aboutCount').textContent = aboutTextarea.value.length;
+  aboutTextarea.addEventListener('input', updateCount);
+  updateCount();
+}
+
+/* ══════════════ INIT ══════════════ */
+renderSkills();
+renderCerts();
+renderPortfolio();
+renderLamaranStats();
+renderLamaran(lamaranData);
+renderActivityMini();
+
+// Animate skill bars
+setTimeout(() => {
+  document.querySelectorAll('.sb-fill').forEach(el => {
+    const w = el.style.width;
+    el.style.width = '0';
+    setTimeout(() => el.style.width = w, 50);
+  });
+}, 300);
+</script>
+<script src="auth.js"></script>
+<script>
+// ── Hydrate profil page dengan data Supabase user ──────────
+(function hydrateProfil() {
+  // Tunggu SBAuth ready
+  const tryHydrate = setInterval(() => {
+    if (!window._sb) return;
+    clearInterval(tryHydrate);
+    window._sb.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        // Belum login — tampilkan tombol login, sembunyikan konten
+        return;
+      }
+      const u = session.user;
+      const meta = u.user_metadata || {};
+      const name = meta.full_name || u.email?.split('@')[0] || 'Pengguna';
+      const initials = name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+      const email = u.email || '';
+      const role = meta.role || 'mahasiswa';
+      const roleLabel = {mahasiswa:'Mahasiswa',fresh_graduate:'Fresh Graduate',profesional:'Profesional'}[role] || role;
+
+      // Update avatar initials
+      const av = document.querySelector('.avatar-inner-big');
+      if (av) av.textContent = initials;
+
+      // Update nama
+      const heroName = document.querySelector('.hero-name');
+      if (heroName) heroName.textContent = name;
+
+      // Update form edit profil jika ada
+      const formName = document.querySelector('#modal-edit-profil input[type=text]');
+      if (formName) formName.value = name;
+      const formEmail = document.querySelector('#modal-edit-profil input[type=email]');
+      if (formEmail) formEmail.value = email;
+
+      // Tambahkan badge role
+      const heroTags = document.querySelector('.hero-tags');
+      if (heroTags && !heroTags.querySelector('.role-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'htag role-badge';
+        badge.textContent = '🎓 ' + roleLabel;
+        heroTags.prepend(badge);
+      }
+
+      // Tampilkan email di info
+      const emailEls = document.querySelectorAll('[data-field="email"]');
+      emailEls.forEach(el => el.textContent = email);
+
+      // Tombol logout di hero-actions
+      const heroActions = document.querySelector('.hero-actions');
+      if (heroActions && !document.getElementById('profil-logout-btn')) {
+        const logoutBtn = document.createElement('button');
+        logoutBtn.id = 'profil-logout-btn';
+        logoutBtn.className = 'btn-ghost';
+        logoutBtn.style.cssText = 'border-color:rgba(248,113,113,.3);color:#f87171;';
+        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt" style="margin-right:.4rem"></i>Keluar';
+        logoutBtn.onclick = () => SBAuth.logout();
+        heroActions.appendChild(logoutBtn);
+      }
+    });
+  }, 200);
+})();
+</script>
+</body>
+</html>
