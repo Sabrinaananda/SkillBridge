@@ -1,4 +1,4 @@
-# SkillBridge 🚀
+# SkillBridge
 
 > Platform digital yang mengintegrasikan pencarian kerja **freelance** dan **magang** dalam satu ekosistem berbasis teknologi cerdas berbasis AI.
 
@@ -9,7 +9,7 @@
 
 ---
 
-## 🔗 Links
+## Links
 
 | Tipe | Link |
 |------|------|
@@ -18,21 +18,21 @@
 
 ---
 
-## 📖 Deskripsi Produk
+## Deskripsi Produk
 
 **SkillBridge** adalah platform digital yang dirancang untuk membantu pengguna — khususnya **mahasiswa dan fresh graduate** — dalam menemukan peluang kerja yang sesuai dengan kemampuan mereka, sekaligus mengembangkan keterampilan secara berkelanjutan.
 
 Platform ini menggabungkan:
-- 🤖 **AI Job Matching** untuk rekomendasi pekerjaan personal
-- 🎓 **Skill Assessment & Certification** untuk validasi kompetensi
-- 💼 **Hybrid Platform** (Freelance + Magang) dalam satu ekosistem
-- 👥 **Mentorship** dari profesional berpengalaman
-- 📊 **Portfolio Builder** otomatis
-- 🏆 **Gamification & Reward** system
+- **AI Job Matching** untuk rekomendasi pekerjaan personal
+- **Skill Assessment & Certification** untuk validasi kompetensi
+- **Hybrid Platform** (Freelance + Magang) dalam satu ekosistem
+- **Mentorship** dari profesional berpengalaman
+- **Portfolio Builder** otomatis
+- **Gamification & Reward** system
 
 ---
 
-## ✨ Fitur Utama
+## Fitur Utama
 
 | No | Fitur | Deskripsi |
 |----|-------|-----------|
@@ -49,7 +49,7 @@ Platform ini menggabungkan:
 
 ---
 
-## 🛠️ Teknologi
+## Teknologi
 
 - **HTML5** – Struktur halaman
 - **CSS3** – Styling dengan CSS Variables, Flexbox, Grid, Animasi
@@ -59,7 +59,7 @@ Platform ini menggabungkan:
 
 ---
 
-## 🚀 Cara Menjalankan
+## Cara Menjalankan
 
 ```bash
 # Clone repository
@@ -76,7 +76,7 @@ Atau buka file `index.html` langsung di browser karena pure HTML/CSS/JS tanpa de
 
 ---
 
-## 📁 Struktur Proyek
+## Struktur Proyek
 
 ```
 skillbridge/
@@ -86,7 +86,7 @@ skillbridge/
 
 ---
 
-## 🧪 Pengujian Aspek Kualitas
+## Pengujian Aspek Kualitas
 
 Pengujian dilakukan secara manual berdasarkan **aspek kualitas ISO 25010** yang sesuai dengan fitur SkillBridge.
 
@@ -127,7 +127,7 @@ Pengujian dilakukan secara manual berdasarkan **aspek kualitas ISO 25010** yang 
 
 ---
 
-## 🎯 Mapping Fitur DP6 → Implementasi DP7
+## Mapping Fitur DP6 → Implementasi DP7
 
 | Fitur DP6 | Implementasi di Web |
 |-----------|---------------------|
@@ -144,7 +144,7 @@ Pengujian dilakukan secara manual berdasarkan **aspek kualitas ISO 25010** yang 
 
 ---
 
-## 👩‍💻 Developer
+## Developer
 
 **Sabrina Ananda Rizkita Fatmantara Putri**  
 NIM: 202310370311206  
